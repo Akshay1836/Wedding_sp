@@ -1,0 +1,822 @@
+:root {
+  --bg: #fff;
+  --muted: #6b7280;
+  --accent: #b76e79;
+  --accent-dark: #8a4f5a;
+  --about-main-move: 14; /* px, main image vertical parallax strength */
+  --about-accent-move: 36; /* px, accent image vertical parallax strength */
+  --about-main-scale: 1.02;
+  --about-accent-scale: 1.04;
+  --container: 1100px;
+}
+* {
+  box-sizing: border-box;
+}
+html, body {
+  height: 100%;
+  margin: 0; /* remove default browser margin so hero can touch the top */
+  overflow-x: hidden; /* prevent horizontal scrolling caused by full-bleed elements */
+}
+body {
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial;
+  font-size: 1.2rem;
+  color: var(--accent-dark);
+  background: var(--bg);
+}
+.nav {
+  left: 0;
+  right: 0;
+  top: 64px;
+  z-index: 9999; /* ensure mobile nav sits above hero content and overlays */
+  /* full-screen overlay on open (initially hidden with translate + opacity) */
+  background: rgba(255,255,255,1);
+  box-shadow: 0 8px 30px rgba(15, 15, 15, 0.06);
+  transform-origin: top;
+  max-height: 0;
+  overflow: hidden;
+  transform: translateY(-6%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 700ms cubic-bezier(.2,.9,.2,1), opacity 700ms ease;
+  padding: 0 20px;
+}
+.site-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10001;
+  background: transparent;
+}
+
+/* when header is over a hero, use white nav text and no box shadow for the inline desktop nav */
+.site-header .header-inner { padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; }
+.site-header .logo { color: #fff; font-family: 'Playfair Display', serif; letter-spacing: 2px; }
+.site-header .nav { position: static; background: transparent; box-shadow: none; transform: none; opacity: 1; pointer-events: auto; max-height: none; }
+.site-header .nav a, .site-header .nav .nav-brand { color: rgba(255,255,255,0.95); text-shadow: 0 2px 10px rgba(0,0,0,0.18); }
+
+/* keep mobile overlay behavior untouched (mobile .nav is portalled outside header) */
+.nav.open {
+  position: fixed;
+  left: 0 !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  max-height: none;
+  padding: 56px 24px; /* give space for close button */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.brand .tag {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.nav {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+.nav a {
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  font-size: 0.95rem;
+}
+.nav a:hover {
+  color: #000;
+}
+
+/* Ensure header navigation items are visible over hero images */
+.site-header .nav a,
+.site-header .nav .nav-brand,
+.site-header .nav .nav-link {
+  color: #ffffff !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.28);
+}
+
+/* mobile nav toggle */
+.nav-toggle {
+  display: none;
+  border: 0;
+  background: transparent;
+  color: var(--accent-dark);
+  padding: 8px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* hide hamburger toggle when mobile overlay is open */
+.nav-toggle.open {
+  display: none !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+}
+.nav-toggle svg {
+  display: block;
+}
+.nav-toggle:focus {
+  outline: 3px solid rgba(139, 64, 82, 0.16);
+  outline-offset: 3px;
+}
+.nav-toggle .line {
+  transition: transform 240ms cubic-bezier(0.2, 0.9, 0.2, 1), opacity 160ms ease;
+}
+.nav-toggle.open .line.top {
+  transform: translateY(5px) rotate(45deg);
+}
+.nav-toggle.open .line.mid {
+  opacity: 0;
+}
+.nav-toggle.open .line.bot {
+  transform: translateY(-5px) rotate(-45deg);
+}
+.hero.large-hero {
+  height: 100vh;
+  min-height: 100vh;
+  background-image: url("/wed14.jfif");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+/* ensure Swiper slides fill the hero area */
+.swiper {
+  height: 100vh;
+}
+.swiper-slide {
+  height: 100vh;
+}
+.slide-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  /* smooth transition for slide background for a flowing feel */
+  transition: transform 1s cubic-bezier(.2,.9,.2,1), opacity 1s cubic-bezier(.2,.9,.2,1);
+}
+.hero-overlay {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 140px 0 120px; /* extra top padding so content clears the absolute header */
+}
+.hero-content {
+  position: relative;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  padding: 20px;
+  z-index: 3;
+}
+/* dark tint overlay to make white text pop */
+.hero.large-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 10, 0.28),
+    rgba(10, 10, 10, 0.28)
+  );
+  pointer-events: none;
+}
+.hero-overlay {
+  width: 100%;
+  padding: 120px 0;
+  position: relative;
+}
+.hero-content {
+  position: relative;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  padding: 20px;
+}
+.hero-title {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2.8rem, 5.6vw, 4.2rem);
+  line-height: 0.95;
+  margin: 0;
+  color: #fff;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+}
+.hero-sub {
+  max-width: 760px;
+  color: rgba(255, 255, 255, 0.9);
+  opacity: 0.95;
+  font-style: italic;
+  margin-top: 18px;
+  font-size: 1.25rem;
+}
+
+/* Featured project (large typographic hero) */
+.featured-project {
+  background: #ffffff; /* white background per request */
+  color: var(--accent-dark);
+  padding: 72px 0 96px;
+  text-align: center;
+}
+.featured-inner { max-width: var(--container); margin: 0 auto; padding: 0 20px; }
+.featured-kicker { color: var(--muted); letter-spacing: 0.08em; margin: 0 0 18px; font-weight:700; text-transform: uppercase; font-size: 0.9rem; }
+.featured-title { font-family: "Playfair Display", serif; font-size: clamp(3rem, 8vw, 6rem); margin: 0; color: var(--accent-dark); letter-spacing: 6px; line-height: 0.9; display: inline-block; position: relative; }
+.featured-sup { color: var(--accent); font-size: 0.36em; position: absolute; right: -8px; top: -8px; }
+.featured-sub { max-width: 760px; margin: 28px auto 20px; color: rgba(0,0,0,0.68); text-transform: none; letter-spacing: 0.02em; }
+.featured-cta { margin-top: 18px; background: var(--accent); color: #fff; border: 0; padding: 10px 18px; box-shadow: 0 10px 30px rgba(183,110,121,0.08); }
+
+@media (max-width: 720px) {
+  .featured-title { font-size: clamp(3rem, 12vw, 5rem); letter-spacing: 2px; }
+  .featured-sup { right: -6px; top: -6px; }
+}
+
+.hero-scroll-indicator {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 36px;
+}
+.hero-scroll-indicator .circle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.share-vertical {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.share-vertical .share-line {
+  width: 1px;
+  height: 90px;
+  background: rgba(0, 0, 0, 0.12);
+}
+.share-vertical .share-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 6px;
+  font-size: 0.85rem;
+}
+.btn {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+}
+.btn.primary {
+  background: var(--accent);
+  color: #fff;
+}
+.btn.ghost {
+  margin-left: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.85);
+}
+.services {
+  padding: 56px 0;
+}
+.section-title {
+  font-family: "Playfair Display", serif;
+  font-size: 1.6rem;
+  margin-bottom: 18px;
+}
+
+/* Gallery Section Styles */
+.gallery-section {
+  background: #ffffff; /* white bg */
+  padding: 72px 0; /* slightly increased vertical padding */
+}
+.gallery-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 20px;
+  display: grid;
+  /* left column holds the title, right column holds the slider + centered subtitle */
+  grid-template-columns: 420px minmax(0, 1fr);
+  gap: 36px;
+  align-items: center; /* keep title and subtitle vertically aligned */
+}
+.gallery-heading .section-title {
+  font-size: 3.6rem;
+  margin: 0 0 10px;
+  align-self: center; /* align vertically with subtitle */
+}
+.gallery-subtext-wrap {
+  display: flex;
+  align-items: center; /* center vertically within the right column */
+  justify-content: flex-start; /* keep paragraph left-aligned inside right column */
+  padding-left: 0;
+}
+/* nudge subtitle a bit left on wider screens so title and subtitle read as a single inline row */
+@media (min-width: 901px) {
+  .gallery-subtext-wrap { margin-left: -22px; }
+}
+.gallery-subtext { color: #6b6b6b; max-width: 520px; margin: 0; }
+.gallery-swiper-wrap { width: 100%; margin: 20px 0; }
+.gallery-swiper { overflow: hidden; }
+.gallery-inner > * { min-width: 0; }
+.slide-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 12px;
+}
+.slide-card {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fafafa;
+  box-shadow: 0 6px 20px rgba(10,10,10,0.06);
+  height: 220px;
+}
+.slide-card {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fafafa;
+  box-shadow: 0 6px 20px rgba(10,10,10,0.06);
+  height: 220px;
+  /* remove inner padding so the image fills the full card */
+  padding: 0;
+  display: block;
+}
+.slide-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: 12px; /* match card radius */
+}
+.slide-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(10,10,10,0.10); }
+
+/* pagination bullets and arrows scoped to the gallery */
+.gallery-section .swiper-pagination-bullet { background: rgba(0,0,0,0.12); }
+.gallery-section .swiper-pagination-bullet-active { background: #f3d6d9; }
+.gallery-section .swiper-button-prev, .gallery-section .swiper-button-next { color: #6b4b4f; }
+
+@media (max-width: 900px) {
+  .gallery-inner { grid-template-columns: 1fr; }
+  .gallery-heading { grid-column: 1 / -1; }
+  .gallery-subtext-wrap { grid-column: 1 / -1; padding-top: 10px; }
+  .slide-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(3, 1fr); }
+  .slide-card { height: 180px; }
+  .gallery-heading { text-align: left; }
+}
+@media (max-width: 480px) {
+  .slide-grid { grid-template-columns: 1fr; grid-template-rows: repeat(6, 1fr); }
+  .slide-card { height: 140px; }
+  .gallery-heading .section-title { font-size: 2rem; }
+}
+
+/* About section styles */
+.about-section { padding: 80px 0; }
+.about-inner { display: grid; grid-template-columns: 520px 1fr; gap: 40px; align-items: center; max-width: var(--container); margin: 0 auto; }
+.about-content { padding-left: 20px; }
+.about-title { font-size: 3.6rem; line-height: 1.02; margin: 0 0 18px; font-weight: 700; font-family: "Playfair Display", serif; }
+.about-title .accent { color: var(--accent-dark); }
+.about-copy { color: rgba(0,0,0,0.58); max-width: 560px; font-size: 1rem; margin-bottom: 24px; }
+.about-sub { color: var(--muted); font-weight: 600; margin: 8px 0 14px; letter-spacing: 0.02em; }
+.about-note { margin-top: 14px; color: var(--muted); font-size: 0.9rem; }
+
+.btn.ghost { border: 1px solid rgba(0,0,0,0.06); padding: 10px 16px; border-radius: 8px; background: transparent; color: var(--muted); font-weight:700; display:inline-block; }
+.btn.ghost:hover { background: rgba(0,0,0,0.02); }
+.about-visual { position: relative; width: 100%; height: 420px; }
+.about-visual .main-img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; box-shadow: 0 10px 40px rgba(10,10,10,0.08); border-radius: 6px; transform: translateZ(0) translateY(0); transition: transform 520ms cubic-bezier(.2,.9,.2,1); will-change: transform; animation: float 6s ease-in-out infinite; }
+.about-visual .accent-img { position: absolute; left: 56%; top: 52%; width: 42%; height: 42%; object-fit: cover; box-shadow: 0 8px 30px rgba(10,10,10,0.06); border-radius: 6px; transform: translateZ(0) translateY(0); transition: transform 520ms cubic-bezier(.2,.9,.2,1); will-change: transform; animation: float 9s ease-in-out infinite; }
+
+/* subtle floating animation for main image */
+@keyframes float {
+  0% { transform: translateY(0) translateZ(0); }
+  50% { transform: translateY(-8px) translateZ(0); }
+  100% { transform: translateY(0) translateZ(0); }
+}
+
+/* hover polish */
+.about-visual:hover .main-img { transform: translateY(-6px) scale(1.02); }
+.about-visual:hover .accent-img { transform: translateY(-12px) scale(1.03); }
+
+@media (max-width: 900px) {
+  .about-inner { grid-template-columns: 1fr; }
+  .about-visual { height: 320px; margin-top: 24px; }
+  .about-visual .main-img { position: relative; width: 100%; height: 320px; animation: none; }
+  .about-visual .accent-img { position: absolute; left: 16px; bottom: -24px; width: 36%; height: 36%; }
+  .about-title { font-size: 2.4rem; }
+}
+.cards {
+  display: flex;
+  gap: 18px;
+}
+.card {
+  flex: 1;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(15, 15, 15, 0.06);
+}
+.card h4 {
+  margin: 0 0 8px;
+}
+.gallery {
+  padding: 56px 0;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+.img-wrap img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+}
+.site-footer {
+  background: #fff;
+  padding: 28px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.contact p {
+  margin: 0;
+}
+copyright {
+  display: block;
+}
+
+@media (max-width: 800px) {
+  .cards {
+    flex-direction: column;
+  }
+  .footer-inner {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .hero h2 {
+    font-size: 1.8rem;
+  }
+}
+
+/* responsive navigation behaviour */
+@media (max-width: 800px) {
+  .nav {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 64px;
+    z-index: 9999; /* ensure mobile nav sits above hero content and overlays */
+    /* full-screen overlay on open */
+    background: rgba(255,255,255,1);
+    box-shadow: 0 8px 30px rgba(15, 15, 15, 0.06);
+    transform-origin: top;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 260ms ease, opacity 200ms ease;
+    padding: 0 20px;
+  }
+  .nav.open {
+  position: fixed !important;
+  left: 0 !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  max-height: none;
+  padding: 56px 24px; /* give space for close button */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  opacity: 1;
+  pointer-events: auto;
+  box-sizing: border-box;
+  }
+  /* styling to match the supplied mobile overlay look */
+  .nav{
+    background: linear-gradient(180deg,#f7f7f6 0%, #f3f3f2 100%);
+    background-size: cover;
+  }
+  .nav-brand{font-family: 'Playfair Display', serif;font-size:0.8rem;color:#9aa;letter-spacing:4px;margin-bottom:14px}
+  .nav a {
+    display: block;
+    margin: 16px 0;
+    font-weight: 600;
+    color: #111; /* darker link color for contrast on pale background */
+    font-size: 2rem;
+    padding: 18px 6px;
+    background: transparent;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 600ms ease, transform 600ms cubic-bezier(.2,.9,.2,1);
+  }
+  .nav a:first-of-type{color:rgba(0,0,0,0.18);font-size:1.5rem;margin-bottom:22px}
+  /* when nav opens, links flow in smoothly */
+  .nav.open .nav-brand{opacity:1;transform:none;transition:opacity 600ms ease 80ms}
+  .nav.open a{opacity:1;transform:translateY(0);} 
+
+  /* mobile close button inside nav */
+  .nav-close{
+  position: absolute;
+  /* align with header padding so close sits where the hamburger toggle is */
+  top: 18px;
+  right: 20px;
+  background: transparent;
+  border: 1px solid rgba(0,0,0,0.08);
+  width:44px;
+  height:44px;
+  border-radius:10px;
+  font-size:20px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition: transform 360ms cubic-bezier(.2,.9,.2,1), opacity 360ms ease;
+  z-index: 10001; /* ensure it's above overlay content */
+  }
+  .nav.open .nav-close{transform:scale(1);opacity:1}
+  .nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  /* position the hamburger to match the close button placement */
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  z-index: 10002;
+  }
+  .header-inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+}
+
+/* bottom-left carousel indicator (pagination) */
+.hero-carousel-indicator {
+  position: absolute;
+  left: 34px;
+  bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.95);
+  z-index: 20;
+  pointer-events: auto;
+}
+.hero-carousel-indicator .circle-loader {
+  display: none;
+}
+.hero-carousel-indicator .count {
+  display: none;
+}
+
+/* style swiper pagination bullets placed in .hero-pagination */
+.hero-pagination {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.hero-pagination.swiper-pagination-bullets {
+  display: flex;
+}
+.hero-pagination .swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.28);
+  opacity: 1;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: transform 160ms ease, background 160ms ease;
+}
+.hero-pagination .swiper-pagination-bullet-active {
+  background: #fff;
+  transform: scale(1.25);
+}
+
+/* right circular arrows (positioned at bottom-right of hero) */
+.hero-arrows {
+  position: absolute;
+  right: 110px; /* increased inset from right edge */
+  bottom: 80px; /* increased bottom margin */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 30;
+}
+.hero-arrows .arrow {
+  width: 44px; /* smaller button */
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.56);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 12px; /* make inner arrow glyph smaller */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.42);
+  cursor: pointer;
+  transition: transform 160ms ease, background 140ms ease, box-shadow 140ms ease;
+  backdrop-filter: blur(4px);
+}
+.hero-arrows .arrow:hover {
+  transform: translateY(-2px) scale(1.02);
+  background: rgba(0, 0, 0, 0.66);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.5);
+}
+
+/* ensure inline SVG icons are crisp and sized correctly (filled icons) */
+.hero-arrows .arrow svg{display:block;width:16px;height:16px;fill:#fff;stroke:none}
+
+/* slightly lighten the button background so filled white icons read clearly */
+.hero-arrows .arrow{background:rgba(0,0,0,0.5)}
+
+/* Remove Swiper's built-in pseudo-element arrows to avoid duplicate icons */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  display: none !important;
+  content: none !important;
+}
+
+.hero-arrows .arrow:focus {
+  outline: 3px solid rgba(255, 255, 255, 0.12);
+  outline-offset: 4px;
+  transform: scale(1.04);
+}
+
+/* improve hit area on small screens */
+@media (max-width: 600px) {
+  /* on small screens, keep arrows at the right but with slightly reduced size/spacing */
+  .hero-arrows {
+    right: 80px; /* more inset on small screens */
+    bottom: 56px; /* increase bottom margin on small screens */
+    gap: 8px;
+  }
+  .hero-arrows .arrow {
+  width: 40px;
+  height: 40px;
+    font-size: 10px; /* smaller inner glyph on mobile */
+  }
+  .hero-arrows .arrow svg{width:14px;height:14px}
+}
+
+/* theater mode toggle in header */
+.theater-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 18px;
+}
+.theater-toggle .label {
+  font-size: 0.85rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+}
+.theater-toggle .switch {
+  width: 44px;
+  height: 24px;
+  border-radius: 24px;
+  background: rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  position: relative;
+  padding: 2px;
+}
+.theater-toggle .knob {
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  transform: translateX(0);
+  transition: transform 240ms ease;
+}
+
+/* ensure nav is visible for desktop and inline */
+@media (min-width: 801px) {
+  .nav {
+    position: static !important;
+    max-height: none !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+  .nav a {
+    margin-left: 18px;
+    display: inline-block !important;
+    opacity: 1 !important;
+    transform: none !important;
+    font-size: 0.95rem;
+    color: var(--muted) !important;
+  }
+  .nav-close { display: none !important; }
+  .nav-brand { display: none !important; }
+  .nav-toggle { display: none !important; }
+}
+
+/* Desktop header layout: brand and nav on one row */
+@media (min-width: 801px) {
+  .container.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 24px;
+    padding: 18px 20px;
+  }
+  .container.header-inner .brand { margin: 0; }
+  .logo { margin: 0; }
+  /* push nav to the right of the header */
+  .container.header-inner .nav { margin-left: auto; }
+  .container.header-inner .nav a { margin: 0 16px; }
+}
+
+/* better hit target for toggle on small screens */
+@media (max-width: 420px) {
+  .nav-toggle {
+    padding: 10px;
+    margin-right: 4px;
+  }
+}
+
+@media (max-width: 420px) {
+  .brand h1 {
+    font-size: 1.1rem;
+  }
+  .brand .tag {
+    font-size: 0.75rem;
+  }
+}
+
+/* Ensure toggle and close share the same hit area and alignment so X sits exactly on the hamburger */
+.nav-toggle,
+.nav-close {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+/* position the hamburger inside the header */
+.nav-toggle {
+  position: absolute; /* header container should be positioned so this lines up */
+  top: 18px;
+  right: 20px;
+  z-index: 10002;
+}
+
+/* position the close button so it matches the hamburger exactly when overlay is open */
+.nav-close {
+  position: fixed; /* overlay is fixed; keep close fixed so it aligns with hamburger */
+  top: 18px;
+  right: 20px;
+  z-index: 10003; /* above overlay */
+  background: transparent;
+  box-shadow: none;
+}
+
+/* hide the close button on desktop (not needed) */
+@media (min-width: 801px) {
+  .nav-close { display: none !important; }
+}

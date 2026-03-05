@@ -1,0 +1,13 @@
+.profile-section { background: #fbf8f7; padding: 64px 0; }
+.profile-inner { display: grid; grid-template-columns: 520px 1fr; gap: 60px; align-items: center; max-width: var(--container); margin: 0 auto; padding: 0 20px; }
+.profile-photo-wrap { display:flex; align-items:center; justify-content:center; }
+.profile-photo { width: 420px; height: 420px; object-fit: cover; border-radius: 50%; box-shadow: 0 14px 36px rgba(10,10,10,0.06); display:block; }
+.profile-content { padding: 18px; }
+.profile-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 4.2rem); margin: 0 0 20px; letter-spacing: 4px; color: var(--accent-dark); }
+.profile-copy p { color: rgba(0,0,0,0.72); line-height: 1.7; max-width: 460px; font-size: 0.98rem; }
+
+@media (max-width: 900px) {
+  .profile-inner { grid-template-columns: 1fr; gap: 24px; }
+  .profile-photo { width: 300px; height: 300px; }
+  .profile-title { font-size: clamp(1.6rem, 7vw, 2.6rem); }
+}

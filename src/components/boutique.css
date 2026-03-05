@@ -1,0 +1,37 @@
+.boutique-focus {
+  background: #a84b4b; /* warm muted red */
+  color: #fff;
+  padding: 72px 0 120px;
+}
+.boutique-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 28px;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 40px;
+}
+.boutique-kicker { font-size: 0.95rem; letter-spacing: 0.12em; color: rgba(255,255,255,0.95); align-self: start; }
+.boutique-title {
+  grid-column: 2 / 3;
+  margin: 0 0 32px;
+  font-size: clamp(2.6rem, 5.6vw, 4.2rem);
+  line-height: 1.02;
+  color: #fff;
+}
+.boutique-columns {
+  grid-column: 2 / 3;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  justify-content: center;
+  max-width: 820px;
+  margin-top: 48px;
+}
+.boutique-columns .col p { margin: 0 0 24px; color: rgba(255,255,255,0.95); line-height: 1.9; }
+
+@media (max-width: 900px) {
+  .boutique-inner { grid-template-columns: 1fr; }
+  .boutique-columns { grid-template-columns: 1fr; margin-top: 32px; }
+  .boutique-title { font-size: clamp(1.8rem, 6vw, 2.4rem); }
+}
