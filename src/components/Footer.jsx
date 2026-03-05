@@ -7,10 +7,10 @@ export default function Footer(){
       <div className="container footer-grid">
         <div className="footer-col">
           <div className="footer-box">
-            <h5>FILMS</h5>
+            <h5>PORTFOLIO</h5>
             <ul>
               <li>All</li>
-              <li>In Theaters</li>
+              <li>About</li>
               <li>Watch Now</li>
             </ul>
           </div>
@@ -18,15 +18,14 @@ export default function Footer(){
 
         <div className="footer-col">
           <div className="footer-box">
-            <h5>SHOP</h5>
+            <h5>SERVICES</h5>
             <ul>
-              <li>All</li>
-              <li>Apparel</li>
-              <li>Collectibles</li>
-              <li>Posters</li>
-              <li>Bags</li>
-              <li>Toys</li>
-              <li>Blu-Ray</li>
+              <li>Wedding Photography</li>
+              <li>Wedding Videography</li>
+              <li>Engagement Sessions</li>
+              <li>Elopements</li>
+              <li>Albums & Prints</li>
+              <li>Full-Day Coverage</li>
             </ul>
           </div>
         </div>
@@ -37,12 +36,11 @@ export default function Footer(){
             <ul>
               <li>Home</li>
               <li>FAQs</li>
-              <li>Shipping & Returns</li>
               <li>Terms of Use</li>
               <li>Privacy Policy</li>
               <li>Cookie Policy</li>
               <li>Contact</li>
-              <li>Host a Screening</li>
+      
             </ul>
           </div>
         </div>
