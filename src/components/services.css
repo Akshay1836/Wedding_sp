@@ -1,5 +1,5 @@
 .services-section {
-  padding: 0;
+  padding: 0 24px; /* add horizontal breathing room */
   background: var(--bg); /* match the base background used by about/other sections */
 }
 
@@ -160,25 +160,23 @@
   align-items: center;
   gap: 8px;
   margin-top: 10px;
-  padding: 10px 16px;
-  /* champagne / soft gold gradient */
-  background: linear-gradient(90deg, #f6e7d0 0%, #d7b76a 100%);
-  color: #3b2a20; /* warm deep text for better contrast on gold */
-  border: 0;
+  padding: 8px 14px;
+  background: transparent; /* light / outlined style */
+  color: var(--accent-dark);
+  border: 1px solid rgba(138,79,90,0.16);
   border-radius: 999px;
   text-decoration: none;
   font-weight: 700;
-  box-shadow: 0 10px 30px rgba(215,170,80,0.12);
+  box-shadow: none;
   align-self: flex-start;
-  transition: transform 220ms cubic-bezier(.2,.9,.2,1), box-shadow 220ms ease, opacity 160ms ease;
+  transition: transform 180ms cubic-bezier(.2,.9,.2,1), box-shadow 180ms ease, background 160ms ease;
 }
 .learn-btn:hover {
-  transform: translateY(-4px) scale(1.01);
-  box-shadow: 0 20px 56px rgba(215,170,80,0.16);
-  opacity: 0.98;
+  transform: translateY(-2px);
+  background: rgba(138,79,90,0.06); /* subtle tint on hover */
 }
 .learn-btn:focus {
-  outline: 3px solid rgba(215,170,80,0.18);
+  outline: 3px solid rgba(138,79,90,0.12);
   outline-offset: 4px;
   border-radius: 999px;
 }

@@ -314,7 +314,7 @@ body {
 /* Gallery Section Styles */
 .gallery-section {
   background: #ffffff; /* white bg */
-  padding: 72px 0; /* slightly increased vertical padding */
+  padding: 72px 24px; /* vertical padding and horizontal breathing room */
 }
 .gallery-inner {
   max-width: var(--container);
