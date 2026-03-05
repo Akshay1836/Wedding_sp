@@ -820,3 +820,14 @@ copyright {
 @media (min-width: 801px) {
   .nav-close { display: none !important; }
 }
+
+/* Force the mobile close button to be visible and clickable when nav is open */
+@media (max-width: 800px) {
+  .nav.open .nav-close {
+    display: inline-flex !important;
+    pointer-events: auto !important;
+    opacity: 1 !important;
+    transform: none !important;
+    z-index: 10005 !important;
+  }
+}

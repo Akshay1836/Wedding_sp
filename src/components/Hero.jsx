@@ -40,12 +40,9 @@ export default function Hero(){
             <div className="hero-overlay">
               <div className="container hero-content">
                 <h2 className="hero-title">WEDDING</h2>
-                <p className="hero-sub">Picturthat helps bring your magical day to life. We will follow you across the day wherever you wish.</p>
+                <p className="hero-sub">We helps bring your magical day to life. We will follow you across the day wherever you wish.</p>
 
-                <div className="share-vertical" aria-hidden>
-                  <div className="share-line"></div>
-                  <div className="share-text">SHARE</div>
-                </div>
+                
               </div>
             </div>
           </SwiperSlide>
