@@ -10,4 +10,10 @@
   .profile-inner { grid-template-columns: 1fr; gap: 24px; }
   .profile-photo { width: 300px; height: 300px; }
   .profile-title { font-size: clamp(1.6rem, 7vw, 2.6rem); }
+  .profile-section { padding-top: 20px; padding-bottom: 24px; }
+}
+
+@media (max-width: 480px) {
+  .profile-section { padding-top: 8px; padding-bottom: 18px; }
+  .profile-photo { width: 260px; height: 260px; }
 }

@@ -9,6 +9,9 @@ import BoutiqueFocus from './components/BoutiqueFocus'
 import Services from './components/Services'
 import Gallery from './components/Gallery'
 import Footer from './components/Footer'
+import ConnectWithUs from './components/ConnectWithUs'
+import ServicesGrid from './components/ServicesGrid'
+import FooterAlt from './components/FooterAlt'
 
 export default function App(){
   return (
@@ -21,13 +24,16 @@ export default function App(){
   <About />
 
   <FeaturedProject />
+  <ServicesGrid />
   <BoutiqueFocus />
   <Services />
   <Gallery />
     <ProfileHero />
         <VideoHero />
-      </main>
-      <Footer />
+  </main>
+  <ConnectWithUs />
+  <Footer />
+
     </div>
   )
 }

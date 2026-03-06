@@ -1,0 +1,81 @@
+.alt-footer {
+  background: #f6f4f4;
+  color: var(--muted);
+  padding: 64px 0 28px;
+  min-height: 380px;
+}
+.alt-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+  align-items: start;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.footer-box h5.footer-logo {
+  font-family: "Playfair Display", serif;
+  letter-spacing: 6px;
+  font-size: 1.4rem;
+  color: var(--accent-dark);
+  margin: 0 0 10px;
+}
+.footer-box h6 {
+  margin: 0 0 8px;
+  color: var(--accent-dark);
+  font-weight: 700;
+  font-size: 0.98rem;
+}
+.footer-box address,
+.footer-box p,
+.footer-box ul {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.55rem;
+}
+.footer-box ul {
+  list-style: none;
+  padding: 0;
+}
+.footer-box ul li {
+  margin: 6px 0;
+  font-size: 0.55rem;
+}
+.footer-box a {
+  color: var(--muted);
+  text-decoration: none;
+}
+.footer-bottom {
+  /* separator removed to avoid thin line above footer */
+  margin-top: 30px;
+  padding-top: 20px;
+}
+.bottom-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.copyright {
+  color: var(--muted);
+  font-size: 0.65rem;
+}
+.credit a {
+  color: var(--accent-dark);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .alt-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .bottom-inner {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .alt-footer { min-height: 260px; padding: 40px 0 20px; }
+}

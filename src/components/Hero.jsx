@@ -18,7 +18,7 @@ export default function Hero(){
   const [index, setIndex] = useState(0)
   const swiperRef = useRef(null)
   // autoplay delay (ms) and transition speed (ms) for a slow, flowing carousel
-  const AUTOPLAY_DELAY = 3000
+  const AUTOPLAY_DELAY = 2000
   const TRANSITION_SPEED = 1000
 
   return (
@@ -29,22 +29,14 @@ export default function Hero(){
         onSlideChange={(s) => setIndex(s.realIndex)}
         navigation={{ nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }}
         pagination={{ el: '.hero-pagination', clickable: true }}
-  slidesPerView={1}
-  loop
-  speed={TRANSITION_SPEED}
-  autoplay={{ delay: AUTOPLAY_DELAY, disableOnInteraction: false, pauseOnMouseEnter: true, waitForTransition: true }}
+        slidesPerView={1}
+        loop
+        speed={TRANSITION_SPEED}
+        autoplay={{ delay: AUTOPLAY_DELAY, disableOnInteraction: false, pauseOnMouseEnter: true, waitForTransition: true }}
       >
         {slides.map((s) => (
           <SwiperSlide key={s.id}>
             <div className="slide-bg" style={{ backgroundImage: `url(${s.img})` }} role="img" aria-label={s.alt} />
-            <div className="hero-overlay">
-              <div className="container hero-content">
-                <h2 className="hero-title">WEDDING</h2>
-                <p className="hero-sub">We helps bring your magical day to life. We will follow you across the day wherever you wish.</p>
-
-                
-              </div>
-            </div>
           </SwiperSlide>
         ))}
 
@@ -55,13 +47,22 @@ export default function Hero(){
 
         <div className="hero-arrows" aria-hidden>
           <button className="arrow prev swiper-button-prev" aria-label="Previous slide">
-            <ChevronLeft aria-hidden="true" />
+            {/* swapped icons: show right chevron on the left control to swap positions visually */}
+            <ChevronRight aria-hidden="true" />
           </button>
           <button className="arrow next swiper-button-next" aria-label="Next slide">
-            <ChevronRight aria-hidden="true" />
+            <ChevronLeft aria-hidden="true" />
           </button>
         </div>
       </Swiper>
+
+      {/* render overlay once so text doesn't move with slide transitions */}
+      <div className="hero-overlay">
+        <div className="container hero-content">
+          <h2 className="hero-title">WEDDING</h2>
+          <p className="hero-sub">We helps bring your magical day to life. We will follow you across the day wherever you wish.</p>
+        </div>
+      </div>
     </section>
   )
 }
