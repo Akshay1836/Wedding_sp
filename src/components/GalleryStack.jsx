@@ -48,7 +48,7 @@ function GalleryStack({
           spaceBetween={-12}
           pagination={{ clickable: true }}
           navigation
-          autoplay={{ delay: 1800, disableOnInteraction: false, pauseOnMouseEnter: true }}
+          autoplay={{ delay: 2800, disableOnInteraction: false, pauseOnMouseEnter: true }}
           loop
         >
           {images.map((item, i) => (
