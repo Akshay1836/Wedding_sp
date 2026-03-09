@@ -48,8 +48,18 @@ function GalleryStack({
           spaceBetween={-12}
           pagination={{ clickable: true }}
           navigation
-          autoplay={{ delay: 2800, disableOnInteraction: false, pauseOnMouseEnter: true }}
           loop
+          onSlideChange={(swiper) => {
+            try {
+              const lastReal = images.length - 1;
+              // when we reach the last real slide, stop autoplay; restart when not on last
+              if (swiper.realIndex === lastReal) {
+                if (swiper.autoplay && swiper.autoplay.running) swiper.autoplay.stop();
+              } else {
+                if (swiper.autoplay && !swiper.autoplay.running) swiper.autoplay.start();
+              }
+            } catch (e) {}
+          }}
         >
           {images.map((item, i) => (
             <SwiperSlide key={i} style={{ width: '260px' }}>
