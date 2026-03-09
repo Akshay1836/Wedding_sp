@@ -103,7 +103,7 @@ export default function Services() {
     <section id="services" className="services-section">
       <div className="services-hero">
         <div className="hero-inner container">
-          <h1 className="hero-title">Our Wedding Services</h1>
+          <h1 className="hero-title">Our Services</h1>
           <div className="hero-divider" aria-hidden="true"></div>
           <p className="hero-sub">
             From planning to celebration, we take care of every detail to make your dream wedding come true.

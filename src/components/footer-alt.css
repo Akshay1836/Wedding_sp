@@ -1,5 +1,5 @@
 .alt-footer {
-  background: #f6f4f4;
+  background: transparent;
   color: var(--muted);
   padding: 64px 0 28px;
   min-height: 380px;
@@ -14,10 +14,10 @@
   padding: 0 20px;
 }
 .footer-box h5.footer-logo {
-  font-family: "Playfair Display", serif;
+  font-family: Poppins, sans-serif;
   letter-spacing: 6px;
   font-size: 1.4rem;
-  color: var(--accent-dark);
+  color: var(--accent);
   margin: 0 0 10px;
 }
 .footer-box h6 {

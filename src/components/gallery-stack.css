@@ -1,0 +1,285 @@
+/* gallery-stack.css - styles specific to the new GalleryStack component */
+.gallery-stack-section {  padding: 56px 20px; }
+.gallery-stack-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Heading and subtext styling for the gallery stack */
+.gallery-stack-heading {
+  text-align: center;
+  margin-bottom: 12px; /* more breathing room under the heading */
+}
+.section-title {
+  font-family: Poppins, sans-serif;
+  font-size: clamp(3.6rem, 6.6vw, 5rem); /* increased size for stronger presence */
+  margin: 0 0 18px;
+  color: var(--accent);
+  line-height: 1.02;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.gallery-stack-subtext-wrap { text-align: center; margin-top: 18px; }
+.gallery-subtext {
+  color: var(--muted);
+  max-width: 880px;
+  margin: 0 auto;
+  font-size: clamp(1.05rem, 1.9vw, 1.25rem);
+  line-height: 1.65; /* slightly more breathing room for readability */
+  opacity: 0.95;
+}
+
+/* Desktop two-column layout for gallery heading + subtext */
+@media (min-width: 900px) {
+  .gallery-stack-inner {
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    gap: 36px;
+    align-items: center;
+  }
+
+  .gallery-stack-heading {
+    text-align: left;
+    margin-bottom: 0;
+  }
+
+  /* Boxed left title card */
+  .gallery-stack-heading {
+    background: rgba(255,255,255,0.02); /* subtle surface */
+    padding: 22px 20px 22px 34px;
+    border-radius: 8px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+    position: relative;
+    overflow: visible;
+  }
+
+  /* vertical gold accent bar inside the left card */
+  .gallery-stack-heading::before {
+    content: "";
+    position: absolute;
+    left: 12px;
+    top: 14px;
+    bottom: 14px;
+    width: 6px;
+    background: var(--accent);
+    border-radius: 4px;
+    box-shadow: 0 6px 18px rgba(166,124,42,0.12);
+  }
+
+  .gallery-stack-subtext-wrap {
+    text-align: left;
+    margin-top: 0;
+  }
+
+  .gallery-stack-subtext-wrap {
+    padding-left: 6px; /* small offset so text sits away from the accent card */
+  }
+
+  .section-title {
+  margin-bottom: 8px;
+  font-size: clamp(3.8rem, 4.2vw, 5.2rem);
+  }
+
+  /* subtle gold accent bar beneath the section title */
+  .section-title::after {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 5px;
+    background: var(--accent);
+    margin-top: 12px;
+    border-radius: 3px;
+    opacity: 0.98;
+  }
+}
+.gallery-stack-swiper-wrap {
+  position: relative;
+  padding: 14px 0 28px;
+  margin-top: 36px; /* space above the photo carousel */
+}
+
+/* ensure full-bleed sections do not introduce their own background color; inherit site bg */
+.gallery-stack-swiper-wrap.full-bleed,
+.gallery-stack-swiper-wrap {
+  background: transparent !important;
+}
+
+/* also guard against any inline slide/card backgrounds */
+.gallery-stack-slide-card,
+.gallery-stack-slide-card * {
+  background: transparent !important;
+}
+.gallery-stack-overlay-title {
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  transform: translate(-50%, -50%);
+  z-index: 6;
+  color: var(--accent);
+  font-family: Poppins, sans-serif;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  pointer-events: none;
+  text-shadow: 0 6px 30px rgba(0, 0, 0, 0.55);
+}
+.gallery-stack-swiper {
+  padding: 1px;
+}
+
+/* Fix: Swiper global rule (height:100vh) is applied project-wide. Override it here so
+  this gallery sizes to its content instead of using the full viewport height. */
+.gallery-stack-swiper {
+  height: auto !important;
+}
+
+/* Build a horizontal row of vertical cards that overlap and have staggered heights. */
+.gallery-stack-swiper .swiper-wrapper {
+  display: flex;
+  /* center items vertically so short cards naturally sit centered relative to tall cards */
+  align-items: center;
+  justify-content: center;
+  gap: 0; /* overlap is controlled by transforms and negative margins on smaller screens */
+  padding: 0 18px;
+}
+
+.gallery-stack-swiper .swiper-slide {
+  width: auto !important;
+  flex: 0 0 auto;
+  height: auto !important;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.gallery-stack-slide-card {
+  width: clamp(240px, 20vw, 420px);
+  height: auto;
+  min-height: 320px;
+  align-self: center;
+  position: relative;
+  /* center any image that doesn't fully fill the card (shorter/landscape images) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.6);
+  transition: transform 420ms cubic-bezier(0.2, 0.9, 0.2, 1), box-shadow 420ms ease;
+  background: transparent;
+}
+.gallery-stack-slide-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: 0;
+}
+
+/* Keep shorter (even) slides visually centered and preserve their entire image */
+.gallery-stack-swiper .swiper-slide:nth-child(even) .gallery-stack-slide-card img {
+  /* fill the card and crop to preserve consistent stacked look with taller cards */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Align tall (odd) slide images toward the top so the subject is not cropped off */
+.gallery-stack-swiper .swiper-slide:nth-child(odd) .gallery-stack-slide-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+/* Desktop: alternate taller / shorter cards for an alternating stacked look */
+@media (min-width: 900px) {
+  .gallery-stack-swiper .swiper-slide:nth-child(odd) .gallery-stack-slide-card {
+    height: 82vh; /* taller */
+    /* lift taller cards up so the shorter ones (centered by flex) appear vertically centered */
+    transform: translateY(calc(-10vh));
+    z-index: 3;
+  }
+  .gallery-stack-swiper .swiper-slide:nth-child(even) .gallery-stack-slide-card {
+    height: 60vh; /* shorter */
+    /* keep shorter cards centered by the flex container */
+    transform: translateY(0);
+    z-index: 1;
+  }
+
+  /* subtle lift on hover/focus to emphasize a card */
+  .gallery-stack-slide-card:hover,
+  .gallery-stack-slide-card:focus-within {
+    transform: translateY(0) scale(1.02);
+    box-shadow: 0 28px 68px rgba(10, 10, 10, 0.22);
+    z-index: 6;
+  }
+}
+
+/* Tablet / small desktop: maintain alternating pattern with reduced heights */
+@media (min-width: 700px) and (max-width: 899px) {
+  .gallery-stack-swiper .swiper-slide:nth-child(odd) .gallery-stack-slide-card { height: 68vh; transform: translateY(calc(-8vh)); }
+  /* keep shorter cards at center in the flex row */
+  .gallery-stack-swiper .swiper-slide:nth-child(even) .gallery-stack-slide-card { height: 52vh; transform: translateY(0); }
+}
+
+/* Mobile: fall back to stacked carousel behavior (single prominent slide at a time) */
+@media (max-width: 699px) {
+  .gallery-stack-swiper .swiper-wrapper { gap: 12px; }
+  .gallery-stack-swiper .swiper-slide { padding: 0; }
+  .gallery-stack-slide-card { width: 100%; height: 360px; }
+  /* give extra breathing room on mobile where content stacks */
+  .gallery-stack-swiper-wrap { margin-top: 24px; }
+}
+
+/* centered large caption overlay - hidden by default, reveal on hover/focus */
+.gallery-stack-caption {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 260ms ease,
+    transform 260ms ease;
+  pointer-events: none;
+}
+.gallery-stack-caption .caption-inner {
+  color: #fff;
+  font-family: Poppins, sans-serif;
+  font-size: clamp(1rem, 2.2vw, 1.6rem);
+  padding: 8px 20px;
+  background: rgba(0, 0, 0, 0.65); /* darker so white text has strong contrast */
+  border-radius: 6px;
+  text-align: center;
+  letter-spacing: 0.06em;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+}
+.gallery-stack-slide-card:hover .gallery-stack-caption,
+.gallery-stack-slide-card:focus .gallery-stack-caption,
+.gallery-stack-slide-card:focus-within .gallery-stack-caption {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+@media (max-width: 900px) {
+  .gallery-stack-slide-card {
+    height: 360px;
+  }
+  .gallery-stack-overlay-title {
+    top: 52%;
+    font-size: 1.6rem;
+  }
+}
+
+/* hide pagination bullets for this gallery while keeping autoplay active */
+.gallery-stack-swiper .swiper-pagination {
+  display: none !important;
+}

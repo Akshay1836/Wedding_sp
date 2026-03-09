@@ -61,7 +61,7 @@ export default function Gallery(){
           slidesPerView={1}
           pagination={{ clickable: true }}
           navigation
-          autoplay={{ delay: 3500, disableOnInteraction: false, pauseOnMouseEnter: true }}
+          autoplay={{ delay: 2000, disableOnInteraction: false, pauseOnMouseEnter: true }}
           loop
         >
           {slides.map((group, si) => (
