@@ -1,6 +1,6 @@
 import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Pagination, Navigation, Autoplay } from 'swiper'
+import { Pagination, Navigation } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
@@ -40,7 +40,7 @@ function GalleryStack({
       <div className="gallery-stack-swiper-wrap full-bleed">
    
         <Swiper
-          modules={[Pagination, Navigation, Autoplay]}
+          modules={[Pagination, Navigation]}
           className="gallery-stack-swiper"
           slidesPerView={'auto'}
           centeredSlides={true}
@@ -48,7 +48,6 @@ function GalleryStack({
           spaceBetween={-12}
           pagination={{ clickable: true }}
           navigation
-          autoplay={{ delay: 2800, disableOnInteraction: false, pauseOnMouseEnter: true }}
           loop
         >
           {images.map((item, i) => (
