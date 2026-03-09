@@ -44,25 +44,15 @@ function GalleryStack({
           className="gallery-stack-swiper"
           slidesPerView={'auto'}
           centeredSlides={true}
-          /* negative spaceBetween allows slides to ============================================================================================================================== very close / slightly overlap */
+          /* negative spaceBetween allows slides to very close / slightly overlap */
           spaceBetween={-12}
           pagination={{ clickable: true }}
           navigation
+          autoplay={{ delay: 2800, disableOnInteraction: false, pauseOnMouseEnter: true }}
           loop
-          onSlideChange={(swiper) => {
-            try {
-              const lastReal = images.length - 1;
-              // when we reach the last real slide, stop autoplay; restart when not on last
-              if (swiper.realIndex === lastReal) {
-                if (swiper.autoplay && swiper.autoplay.running) swiper.autoplay.stop();
-              } else {
-                if (swiper.autoplay && !swiper.autoplay.running) swiper.autoplay.start();
-              }
-            } catch (e) {}
-          }}
         >
           {images.map((item, i) => (
-            <SwiperSlide key={i} style={{ width: '260px' }}>
+            <SwiperSlide key={i}>
               <div className="gallery-stack-slide-card" tabIndex={0}>
                 <img src={item.src} alt={item.caption || `Wedding ${i+1}`} loading="lazy" />
                 <div className="gallery-stack-caption" aria-hidden>

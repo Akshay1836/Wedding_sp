@@ -536,7 +536,7 @@ button {
 .gallery-subtext {
   color: var(--muted);
   max-width: 520px;
-  margin: 0 0 28px; /* added bottom margin for spacing below subtitle */
+  margin: 0 0 28px;
 }
 .gallery-swiper-wrap {
   width: 100%;
