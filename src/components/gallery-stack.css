@@ -24,7 +24,7 @@
 .gallery-subtext {
   color: var(--muted);
   max-width: 880px;
-  margin: 0 auto;
+  margin: 0 auto 18px; /* add bottom spacing */
   font-size: clamp(1.05rem, 1.9vw, 1.25rem);
   line-height: 1.65; /* slightly more breathing room for readability */
   opacity: 0.95;
