@@ -68,7 +68,7 @@ export default function About(){
           <h2 className="about-title">We craft <span className="accent">unforgettable</span> wedding stories</h2>
           <p className="about-sub">Cinematic imagery. Honest moments. A relaxed experience.</p>
 
-          <p className="about-copy">Picturthat is a London-based creative studio crafting cinematic wedding photography and film. We combine documentary instincts with refined composition to create imagery that feels natural, timeless and deeply personal. From full-day coverage to bespoke films and keepsake albums, we design a calm, thoughtful experience that lets your story unfold.</p>
+          <p className="about-copy">London-based creative studio crafting cinematic wedding photography and film. We combine documentary instincts with refined composition to create imagery that feels natural, timeless and deeply personal. From full-day coverage to bespoke films and keepsake albums, we design a calm, thoughtful experience that lets your story unfold.</p>
 
           <div className="about-note">Free consultation available</div>
         </div>

@@ -425,6 +425,21 @@ button {
   transform: translateY(0);
 }
 
+/* stronger thematic hover for the ghost featured CTA (more specific to override defaults) */
+.btn.ghost.featured-cta:hover,
+.btn.ghost.featured-cta:focus {
+  background: linear-gradient(180deg, rgba(197,158,74,0.12), rgba(197,158,74,0.06));
+  color: var(--accent-dark);
+  border-color: var(--accent);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 18px 48px rgba(197,158,74,0.16);
+}
+
+.btn.ghost.featured-cta:focus-visible {
+  outline: 3px solid rgba(197,158,74,0.18);
+  outline-offset: 4px;
+}
+
 @media (max-width: 720px) {
   .featured-title {
     font-size: clamp(3rem, 12vw, 5rem);
@@ -511,8 +526,9 @@ button {
   margin: 0 auto;
   padding: 0 20px;
   display: grid;
-  /* left column holds the title, right column holds the slider + centered subtitle */
-  grid-template-columns: 420px minmax(0, 1fr);
+  /* left column holds the title, right column holds the slider + centered subtitle
+    use clamp so the left column is flexible on medium widths */
+  grid-template-columns: clamp(260px, 28%, 420px) minmax(0, 1fr);
   gap: 36px;
   align-items: center; /* keep title and subtitle vertically aligned */
 }
@@ -601,11 +617,17 @@ button {
     grid-template-columns: 1fr;
   }
   .gallery-heading {
-    grid-column: 1 / -1;
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center; /* center heading on tablet/mobile */
+  text-align: center;
   }
   .gallery-subtext-wrap {
-    grid-column: 1 / -1;
-    padding-top: 10px;
+  grid-column: 1 / -1;
+  padding-top: 12px;
+  display: flex;
+  justify-content: center; /* center the paragraph under the heading */
+  align-items: center;
   }
   .slide-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -654,21 +676,24 @@ button {
 
 /* About section styles */
 .about-section {
-  padding: 80px 0;
+  /* default overlap amount for the small accent image; increase to move it further over the main image */
+  --about-accent-overlap: 140px;
+  padding: clamp(40px, 6vw, 80px) 0;
 }
 .about-inner {
   display: grid;
-  grid-template-columns: 520px 1fr;
-  gap: 40px;
+  grid-template-columns: minmax(280px, 480px) 1fr;
+  gap: clamp(20px, 3vw, 48px);
   align-items: center;
   max-width: var(--container);
   margin: 0 auto;
+  padding: 0 20px;
 }
 .about-content {
-  padding-left: 20px;
+  padding-left: 0;
 }
 .about-title {
-  font-size: 3.6rem;
+  font-size: clamp(2rem, 4vw, 3.6rem);
   line-height: 1.02;
   margin: 0 0 18px;
   font-weight: 700;
@@ -679,8 +704,8 @@ button {
 }
 .about-copy {
   color: var(--muted);
-  max-width: 560px;
-  font-size: 1rem;
+  max-width: 60ch;
+  font-size: clamp(0.95rem, 1.4vw, 1rem);
   margin-bottom: 24px;
 }
 .about-sub {
@@ -692,7 +717,7 @@ button {
 .about-note {
   margin-top: 14px;
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
 }
 
 .btn.ghost {
@@ -707,28 +732,28 @@ button {
 .btn.ghost:hover {
   background: rgba(255, 255, 255, 0.02);
 }
+
 .about-visual {
   position: relative;
   width: 100%;
-  height: 520px;
+  /* increase overall visual height so main image appears larger on most screens */
+  height: clamp(360px, 50vh, 640px);
   background: transparent;
 }
 
-/* Main visual: large panel on the right */
+/* Main visual: large panel on the left/top depending on layout */
 .about-visual .main-img {
   position: absolute;
   right: 0;
   top: 0;
-  width: 62%;
-  height: 80%;
+  /* larger main image to better showcase the photo */
+  width: clamp(320px, 62%, 70%);
+  height: 100%;
   object-fit: cover;
-  /* reduce shadow to avoid visible shaded band on the left side */
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
-    border-radius: 0;
+  border-radius: 8px;
   transform: translateZ(0) translateY(0) scale(1);
-  transition:
-    transform 420ms cubic-bezier(0.2, 0.9, 0.2, 1),
-    box-shadow 420ms;
+  transition: transform 420ms cubic-bezier(0.2, 0.9, 0.2, 1), box-shadow 420ms;
   will-change: transform;
   animation: float 6s ease-in-out infinite;
   z-index: 1;
@@ -737,21 +762,24 @@ button {
 /* Accent visual: smaller card overlapping bottom-left */
 .about-visual .accent-img {
   position: absolute;
-  left: 6%;
-  bottom: -8px; /* moved up 20px */
-  width: 38%;
-  height: 38%;
+  /* place the accent image at the main image's left edge so it overlaps bottom-left
+    --about-accent-overlap: positive value (px) moves the accent further left into the main image */
+  left: calc(100% - clamp(260px, 55%, 62%) - var(--about-accent-overlap, 40px));
+  bottom: 2%;
+  /* slightly larger accent image */
+  width: clamp(180px, 40%, 44%);
+  height: clamp(140px, 34%, 40%);
   object-fit: cover;
-  /* lighter accent shadow */
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
-    border-radius: 0;
-  transform: translateZ(0) rotate(-2deg) translateY(0) scale(1);
-  transition:
-    transform 420ms cubic-bezier(0.2, 0.9, 0.2, 1),
-    box-shadow 420ms;
+  border-radius: 0;
+  /* initial offset nudged left/up so it overlaps the main image more */
+  /* small downward nudge: reduce the upward translate so the accent sits lower */
+  transform: translate3d(-18px, -2px, 0) rotate(-3deg) scale(1.04);
+  transform-origin: center;
+  transition: transform 420ms cubic-bezier(0.2, 0.9, 0.2, 1), box-shadow 420ms;
   will-change: transform;
   animation: float 8s ease-in-out infinite;
-  z-index: 2;
+  z-index: 3;
 }
 
 /* Hover/interaction: subtle lift and scale */
@@ -767,26 +795,32 @@ button {
 /* Responsive fallback: stack images on small screens */
 @media (max-width: 900px) {
   .about-visual {
-    height: 420px;
+    height: 360px;
+  }
+  .about-inner {
+    grid-template-columns: 1fr;
   }
   .about-visual .main-img {
-    position: absolute;
-    right: 0;
-    left: 0;
+    position: relative;
+    right: auto;
+    left: auto;
     top: 0;
     width: 100%;
     height: 60%;
-    border-radius: 6px;
+  border-radius: 0;
+    animation: none;
   }
   .about-visual .accent-img {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 20px;
-    width: 60%;
+    bottom: 8px;
+    width: 68%; /* slightly larger on tablet */
     height: 36%;
     rotate: 0deg;
   }
+  .about-title { font-size: clamp(1.6rem, 4vw, 2.4rem); }
+  .about-copy { font-size: 0.95rem; }
 }
 
 /* subtle floating animation for main image */
@@ -819,17 +853,18 @@ button {
     margin-top: 24px;
   }
   .about-visual .main-img {
-    position: relative;
-    width: 100%;
-    height: 320px;
-    animation: none;
+  position: relative;
+  width: 100%;
+  height: 360px;
+  animation: none;
+  border-radius: 0;
   }
   .about-visual .accent-img {
     position: absolute;
     left: 16px;
     bottom: -24px;
-    width: 36%;
-    height: 36%;
+    width: 40%;
+    height: 40%;
   }
   .about-title {
     font-size: 2.4rem;
@@ -1305,4 +1340,48 @@ copyright {
     transform: none !important;
     z-index: 10005 !important;
   }
+}
+
+/* Extra vertical spacing for image sections on mobile */
+@media (max-width: 900px) {
+  .gallery-section,
+  .about-section {
+    padding-bottom: 40px; /* add breathing room below the section */
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-section,
+  .about-section {
+    padding-bottom: 56px; /* larger bottom spacing for small phones */
+  }
+  .about-visual {
+    margin-bottom: 36px !important; /* extra gap when visuals stack */
+  }
+}
+
+@media (max-width: 900px) {
+  /* ensure the visual keeps breathing room when the layout stacks */
+  .about-visual {
+    margin-bottom: 28px !important;
+  }
+}
+
+/* Center the small note text inside about content on mobile */
+@media (max-width: 900px) {
+  .about-content .about-note {
+    text-align: center;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
+}
+
+/* Force square images site-wide (no rounded corners) */
+img,
+.img-wrap img,
+.slide-card img,
+.about-visual .main-img,
+.about-visual .accent-img {
+  border-radius: 0 !important;
 }
