@@ -45,7 +45,7 @@ function GalleryStack({
           slidesPerView={'auto'}
           centeredSlides={true}
           /* negative spaceBetween allows slides to very close / slightly overlap */
-          spaceBetween={-12}
+          spaceBetween={-6}
           pagination={{ clickable: true }}
           navigation
           loop
@@ -53,6 +53,7 @@ function GalleryStack({
           {images.map((item, i) => (
             <SwiperSlide key={i}>
               <div className="gallery-stack-slide-card" tabIndex={0}>
+                <div className="slide-index" aria-hidden>{i+1}</div>
                 <img src={item.src} alt={item.caption || `Wedding ${i+1}`} loading="lazy" />
                 <div className="gallery-stack-caption" aria-hidden>
                   <div className="caption-inner">{item.caption}</div>
