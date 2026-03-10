@@ -129,6 +129,69 @@ button {
     opacity 700ms ease;
   padding: 0 20px;
 }
+
+/* Open state: smooth slide down + fade in */
+.nav.open {
+  max-height: 100vh; /* allow full height when open */
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* luxe overlay appearance: black backdrop and golden links */
+.nav.open {
+  background: linear-gradient(180deg, rgba(6,6,6,0.98), rgba(10,10,10,0.98));
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* animate nav links with a gentle upward slide and fade */
+.nav a {
+  display: block;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: transform 320ms cubic-bezier(0.2,0.9,0.2,1), opacity 320ms ease;
+}
+.nav.open a {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* gold link styling */
+.nav.open a {
+  color: var(--gold); /* main gold */
+  font-size: clamp(1.1rem, 2.4vw, 1.6rem);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 8px 0;
+}
+
+.nav.open a:hover,
+.nav.open a:focus {
+  color: #ffd97a; /* lighter gold on hover */
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+
+/* keep the header and toggle above the overlay so the toggle remains visible */
+.site-header {
+  position: relative;
+  z-index: 60;
+}
+.nav {
+  z-index: 55; /* just under header */
+}
+
+/* staggered appearance for large screens: small delay per link using nth-child */
+.nav.open a:nth-of-type(1){ transition-delay: 0ms }
+.nav.open a:nth-of-type(2){ transition-delay: 40ms }
+.nav.open a:nth-of-type(3){ transition-delay: 80ms }
+.nav.open a:nth-of-type(4){ transition-delay: 120ms }
+.nav.open a:nth-of-type(5){ transition-delay: 160ms }
 .site-header {
   position: fixed;
   top: 0;
@@ -382,8 +445,7 @@ body.hero-loading-active{ overflow: hidden; }
 
 /* final hero ready - slide background becomes visible, overlay keeps text readable */
 .hero.hero-ready .slide-bg{ transform: scale(1.06); transition: transform 1200ms cubic-bezier(0.22,0.9,0.2,1); }
-.hero:not(.hero-ready) .slide-bg,
-.hero:not(.hero-ready) .hero-overlay{
+.hero:not(.hero-ready) .slide-bg{
   opacity: 0 !important;
   visibility: hidden !important;
   pointer-events: none !important;
@@ -403,6 +465,24 @@ body.hero-loading-active{ overflow: hidden; }
   align-items:flex-end; /* move text to the right */
   text-align:right;
 }
+
+/* Hide hero overlay content when user scrolls up */
+.hero-overlay.hidden-on-scroll {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 1600ms cubic-bezier(.22, .9, .15, 1), transform 1600ms cubic-bezier(.22, .9, .15, 1);
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+
+/* hide overlay while the loader is active */
+body.hero-loading-active .hero-overlay {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.hero-overlay { transition: opacity 1600ms cubic-bezier(.22, .9, .15, 1), transform 1600ms cubic-bezier(.22, .9, .15, 1); will-change: opacity, transform; }
 
 /* constrain text width so right column reads cleanly */
 .hero-content > * { max-width: 640px; width: 100%; }
@@ -456,7 +536,7 @@ body.hero-loading-active{ overflow: hidden; }
 /* on very wide screens make the title larger and push it further toward the corner */
 @media (min-width: 1400px){
   .hero-right{ right: clamp(48px, 8vw, 220px); bottom: clamp(40px, 9vh, 220px) }
-  .hero-title--stack{ font-size: clamp(7rem, 16vw, 18rem); line-height: 0.82 }
+  .hero-title--stack{ font-size: clamp(9rem, 20vw, 22rem); line-height: 0.88 }
 }
 .hero-sub{
   font-size: 1.18rem;
@@ -483,8 +563,8 @@ body.hero-loading-active{ overflow: hidden; }
   color: var(--hero-title-color); /* themed hero title color */
   margin: 0;
   /* scale dynamically but cap extremes */
-  font-size: clamp(48px, 13.5vw, 220px);
-  line-height: 0.86; /* tighten lines so words overlap slightly like the reference */
+  font-size: clamp(80px, 18vw, 300px);
+  line-height: 0.92; /* slightly more vertical breathing for elegance */
   letter-spacing: -0.02em;
   text-align: right;
   -webkit-font-smoothing: antialiased;
@@ -497,7 +577,7 @@ body.hero-loading-active{ overflow: hidden; }
 @media (max-width: 980px){
   .hero-grid{ gap: 28px }
   .hero-sub{ font-size: 1.05rem; max-width: 420px }
-  .hero-title--stack{ font-size: clamp(44px, 18vw, 140px); line-height: 0.92 }
+  .hero-title--stack{ font-size: clamp(48px, 18vw, 160px); line-height: 0.92 }
   .hero-content{ padding: 28px 20px }
 }
 
@@ -505,7 +585,7 @@ body.hero-loading-active{ overflow: hidden; }
   .hero-grid{ grid-template-columns: 1fr; text-align: center }
   .hero-left{ order: 1; text-align: center; padding-right: 0 }
   .hero-right{ order: 2; justify-content: center; margin-top: 8px }
-  .hero-title--stack{ font-size: clamp(32px, 12vw, 64px); line-height: 0.98; transform: none }
+  .hero-title--stack{ font-size: clamp(80px, 14vw, 84px); line-height: 2.0; transform: none }
   .hero-sub{ max-width: 100%; }
   .hero-overlay{ padding: 28px 12px }
 }
@@ -556,8 +636,8 @@ body.hero-loading-active{ overflow: hidden; }
 .hero-right{ display:flex; align-items:center; justify-content:flex-end }
 
 .hero-title--stack{
-  font-size: clamp(4rem, 11vw, 10rem);
-  line-height: 0.9;
+  font-size: clamp(6.5rem, 13vw, 16rem);
+  line-height: 0.94;
   font-family: Poppins, sans-serif;
   font-weight: 700;
   /* gold gradient fill with fallback */
@@ -577,13 +657,13 @@ body.hero-loading-active{ overflow: hidden; }
 /* nudge the headline lower and slightly inset on very wide screens */
 @media (min-width: 1400px){
   .hero-right{ transform: translateY(8vh); }
-  .hero-title--stack{ font-size: clamp(6rem, 14vw, 14rem); }
+  .hero-title--stack{ font-size: clamp(8rem, 18vw, 20rem); }
 }
 
 @media (max-width: 900px){
   .hero-grid{ grid-template-columns: 1fr; text-align:center }
   .hero-right{ justify-content:center }
-  .hero-title--stack{ font-size: clamp(2.4rem, 9.8vw, 3.6rem); text-align:center }
+  .hero-title--stack{ font-size: clamp(2.8rem, 11vw, 4.6rem); text-align:center }
   .hero-left{ padding: 12px 0 }
 }
 
@@ -1468,7 +1548,8 @@ copyright {
 
 /* ensure nav is visible for desktop and inline */
 @media (min-width: 801px) {
-  .nav {
+  /* only affect header inline nav; keep overlay .nav behavior intact */
+  .site-header .nav {
     position: static !important;
     max-height: none !important;
     display: flex !important;
@@ -1480,7 +1561,7 @@ copyright {
     opacity: 1 !important;
     pointer-events: auto !important;
   }
-  .nav a {
+  .site-header .nav a {
     margin-left: 18px;
     display: inline-block !important;
     opacity: 1 !important;
@@ -1488,13 +1569,13 @@ copyright {
     font-size: 0.95rem;
     color: var(--muted) !important;
   }
-  .nav-close {
+  .site-header .nav-close {
     display: none !important;
   }
-  .nav-brand {
+  .site-header .nav-brand {
     display: none !important;
   }
-  .nav-toggle {
+  .site-header .nav-toggle {
     display: inline-flex !important; /* keep toggle visible on desktop */
     align-items: center;
     justify-content: center;
@@ -1525,13 +1606,16 @@ copyright {
   .header-left{ display:flex; align-items:center; gap:16px; justify-content:flex-start }
   .brand{ justify-self:center }
   .header-right{ display:flex; align-items:center; gap:18px; justify-content:flex-end }
-  .header-right .contact-link{ letter-spacing: 2px; color: var(--cream); text-decoration:none; font-size:0.95rem }
+  .header-right{ display:flex; align-items:center; gap:12px; justify-content:flex-end }
+  .header-right .contact-link{ letter-spacing: 2px; color: var(--cream); text-decoration:none; font-size:0.98rem; font-weight:600 }
   .header-left .menu-label{ letter-spacing: 2px; color: var(--cream); background: transparent; border: none; font-size:0.95rem; cursor:pointer }
   .nav-toggle{ color: var(--cream); }
   /* make the toggle icon thinner and slightly smaller to match the reference */
   .nav-toggle svg { width: 26px; height: 18px }
   .nav-toggle path { stroke-width: 2; stroke: rgba(245,240,233,0.95) }
-  .fav{ background: transparent; border: 0; color: var(--cream); font-size: 18px }
+  /* make heart larger and inline with CONTACT US text */
+  .fav{ background: transparent; border: 0; color: var(--gold); font-size: 22px; line-height:1; padding:0; margin-left:6px; transition: transform .18s ease, color .18s ease; display:inline-flex; align-items:center; }
+  .fav::before{ content: ''; display:inline-block; width:0; }
 
   /* ensure toggle sits inline and left of the MENU label on large screens */
   .header-left .nav-toggle{
@@ -1575,10 +1659,20 @@ copyright {
   .header-left .nav-toggle{ position: absolute; right: 18px; top: 14px; }
   .header-right{ justify-self: end; display:flex; gap:14px; align-items:center }
   .header-right .contact-link{ display: none }
-  .fav{ font-size:18px; color: var(--cream) }
+  .fav{ font-size:18px; color: var(--gold) }
   /* hide favorite heart on mobile */
   .fav{ display: none }
+
+  /* subtle hover/focus for the favorite heart when visible */
+  .fav:hover,
+  .fav:focus {
+    transform: translateY(-2px) scale(1.03);
+    color: #ffd97a;
+    outline: none;
+  }
 }
+
+/* keep the morphing toggle visible so it acts as the single control on mobile */
 
 /* Ensure toggle and close share the same hit area and alignment so X sits exactly on the hamburger */
 .nav-toggle,

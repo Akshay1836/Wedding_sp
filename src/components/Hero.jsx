@@ -16,6 +16,8 @@ export default function Hero(){
   const heroRef = useRef(null)
   const [progress, setProgress] = useState(0)
   const [phase, setPhase] = useState('loading') // 'loading' | 'stack' | 'final'
+  const [showText, setShowText] = useState(true)
+  const lastY = useRef(typeof window !== 'undefined' ? window.scrollY : 0)
   // autoplay delay (ms) and transition speed (ms) for a slow, flowing carousel
   const AUTOPLAY_DELAY = 2000
   const TRANSITION_SPEED = 1000
@@ -85,6 +87,58 @@ export default function Hero(){
     return () => document.body.classList.remove('hero-loading-active')
   }, [phase])
 
+  // hide hero texts when user scrolls up; show when scrolling down
+  useEffect(() => {
+    const heroEl = heroRef.current
+    const overlay = heroEl && heroEl.querySelector('.hero-overlay')
+
+    function applyHidden(hide){
+      setShowText(!hide)
+      if (overlay) {
+        overlay.classList.toggle('hidden-on-scroll', hide)
+      }
+    }
+
+    function onScroll(){
+      const y = window.scrollY || 0
+      const delta = y - lastY.current
+      // delta > 0 means scrolling down (page moved up) -> hide
+      if (delta > 2) applyHidden(true)
+      else if (delta < -2) applyHidden(false)
+      lastY.current = y
+    }
+
+    function onWheel(e){
+      // wheel.deltaY > 0 => scrolling down, <0 scrolling up
+      if (e.deltaY > 0) applyHidden(true)
+      else if (e.deltaY < 0) applyHidden(false)
+    }
+
+    let touchStartY = null
+    function onTouchStart(e){ touchStartY = e.touches && e.touches[0] ? e.touches[0].clientY : null }
+    function onTouchMove(e){
+      if (touchStartY == null) return
+      const y = e.touches[0].clientY
+      const delta = y - touchStartY
+      // finger moved up (delta < 0) -> page scroll down -> hide
+      if (delta < -6) applyHidden(true)
+      else if (delta > 6) applyHidden(false)
+      touchStartY = y
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('wheel', onWheel, { passive: true })
+    window.addEventListener('touchstart', onTouchStart, { passive: true })
+    window.addEventListener('touchmove', onTouchMove, { passive: true })
+
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('wheel', onWheel)
+      window.removeEventListener('touchstart', onTouchStart)
+      window.removeEventListener('touchmove', onTouchMove)
+    }
+  }, [])
+
   // when finalize, stop the swiper autoplay and lock the background to the chosen stack image
   useEffect(() => {
     if (phase !== 'final') return
@@ -115,7 +169,7 @@ export default function Hero(){
       )}
 
       {/* render overlay once so text doesn't move with slide transitions */}
-<div className="hero-overlay">
+<div className={`hero-overlay ${!showText ? 'hidden-on-scroll' : ''}`}>
   <div className="container hero-grid">
     <div className="hero-left">
       <p className="hero-sub">

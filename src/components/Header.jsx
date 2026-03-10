@@ -60,13 +60,7 @@ export default function Header(){
           aria-hidden={!open}
           onClick={close}
         >
-          {/* close button placed inside nav so menu can be dismissed */}
-          <button className="nav-close" onClick={() => setOpen(false)} aria-label="Close menu">
-            <svg width="26" height="26" viewBox="0 0 23 23" aria-hidden>
-              <path d="M 3 3 L 20 20" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-              <path d="M 20 3 L 3 20" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-            </svg>
-          </button>
+          {/* overlay uses header toggle as control, so no separate close button here */}
 
           <a className="nav-link" href="#home">Home</a>
           <a className="nav-link" href="#about">About</a>
