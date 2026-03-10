@@ -26,6 +26,8 @@
   z-index: 2;
   /* removed heavy text-shadow for a cleaner, modern look */
 }
+/* remove the global decorative underline (::after) for this hero since we use a custom .hero-divider */
+.services-hero .hero-inner .hero-title::after{ display: none !important }
 .hero-divider {
   height: 6px;
   width: 96px;
