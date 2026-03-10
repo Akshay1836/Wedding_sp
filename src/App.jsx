@@ -9,6 +9,7 @@ import BoutiqueFocus from './components/BoutiqueFocus'
 import Services from './components/Services'
 import GalleryStack from './components/GalleryStack.jsx'
 import Gallery from './components/Gallery'
+import Expertise from './components/Expertise'
 import Footer from './components/Footer'
 import ConnectWithUs from './components/ConnectWithUs'
 import ServicesGrid from './components/ServicesGrid'
@@ -26,6 +27,7 @@ export default function App(){
   <About />
 
   <FeaturedProject />
+  <Expertise />
   <ServicesGrid />
   <BoutiqueFocus />
   <GalleryStack />
