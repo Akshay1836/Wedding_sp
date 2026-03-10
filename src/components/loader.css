@@ -1,0 +1,9 @@
+.loader-wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:999999;transition:opacity 420ms ease, visibility 420ms ease; background: linear-gradient(180deg, rgba(11,11,11,0.98), rgba(11,11,11,0.92));}
+.loader-wrap.exiting{opacity:0;visibility:hidden;pointer-events:none;z-index:0}
+.loader-counter{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:Poppins, sans-serif;color:var(--muted);font-weight:400;display:flex;align-items:baseline;gap:8px;transition:transform 420ms ease, opacity 360ms ease}
+.loader-counter.center .num{font-size:clamp(2.2rem,8vw,5rem);letter-spacing:1px; color: var(--accent);}
+.loader-counter.center .pct{font-size:clamp(1rem,3vw,1.25rem);color:var(--muted);opacity:0.95;margin-left:6px}
+.loader-art{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(42vw,520px);display:flex;align-items:center;justify-content:center}
+.loader-svg{width:100%;max-width:520px;color:var(--accent);opacity:0.98}
+/* keep loader decorative but on-theme: dark backdrop with gold accent */
+/* decorative dots removed */

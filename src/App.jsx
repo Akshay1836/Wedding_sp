@@ -13,6 +13,7 @@ import Footer from './components/Footer'
 import ConnectWithUs from './components/ConnectWithUs'
 import ServicesGrid from './components/ServicesGrid'
 import FooterAlt from './components/FooterAlt'
+import SignatureBlock from './components/SignatureBlock'
 
 export default function App(){
   return (
@@ -30,9 +31,11 @@ export default function App(){
   <GalleryStack />
   <Services />
   <Gallery />
+    <SignatureBlock />
     <ProfileHero />
         <VideoHero />
   </main>
+
   <ConnectWithUs />
   <Footer />
 

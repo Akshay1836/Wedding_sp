@@ -1,0 +1,98 @@
+/* Signature block styles (visual only, local colors to match sample) */
+.signature-block{
+  padding: 56px 0; /* reduced vertical padding */
+  background: var(--bg); /* use site background */
+  color: var(--muted);
+}
+.signature-inner{
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 20px;
+  display: grid;
+  /* slightly tighter columns and gap for large screens */
+  grid-template-columns: 1fr minmax(280px, 460px);
+  gap: 36px;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(6px);
+  animation: sb-fade 620ms cubic-bezier(0.2,0.9,0.2,1) 1 forwards;
+}
+.signature-copy h2{
+  font-family: Poppins, sans-serif;
+  /* match the site's about/title scale for visual harmony */
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  color: #fff; /* stronger contrast for heading */
+  margin: 0 0 18px;
+  line-height: 1.02;
+  font-weight: 700;
+}
+.signature-copy .accent{ color: var(--accent); }
+.signature-desc{
+  max-width: 720px;
+  color: var(--muted);
+  margin: 0 0 28px;
+  /* use same body scale as about-copy */
+  font-size: clamp(0.95rem, 1.4vw, 1rem);
+}
+.signature-visual{
+  display:flex;
+  align-items:stretch; /* allow meta to vertically center beside the signature */
+  gap: 32px;
+}
+.signature-sign{
+  width: 100%; /* scale to column */
+  max-width: 320px; /* reduced size for a tighter layout */
+  height: auto;
+  display:block;
+  object-fit: contain;
+}
+.signature-meta{
+  border-left:1px solid rgba(255,255,255,0.06);
+  padding-left:22px;
+  margin-left:8px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-start;
+  align-self: center; /* vertically center within the visual column */
+}
+.signature-meta .meta-name{
+  color: var(--accent);
+  font-weight:700;
+  font-size: 1rem; /* align with other small heading sizes */
+}
+.signature-meta .meta-role{
+  color: var(--muted);
+  margin-top:6px;
+}
+
+@media (max-width: 900px){
+  .signature-inner{ grid-template-columns: 1fr; }
+  .signature-copy h2{ text-align:center; }
+  .signature-visual{ justify-content:center; align-items:center; margin-top:20px; flex-direction: column; gap:12px; }
+  .signature-meta{ border-left: none; padding-left:0; text-align:center; align-items:center }
+  .signature-sign{ width: 240px; max-width: 100%; margin: 0 auto; }
+}
+
+/* Extra tuning for very large viewports */
+@media (min-width: 1400px) {
+  .signature-inner { grid-template-columns: 1fr 460px; gap: 56px; }
+  .signature-copy h2 { font-size: clamp(2.2rem, 4.5vw, 4rem); }
+  .signature-sign { max-width: 380px; }
+}
+
+@media (max-width: 480px){
+  .signature-block{ padding: 48px 0; }
+  .signature-copy h2{ font-size: clamp(1.6rem, 5.2vw, 2.4rem); }
+  .signature-desc{ margin-bottom: 18px; }
+  .signature-meta{ padding-left: 0; margin-left: 0; }
+  .signature-sign{ margin: 0 auto; }
+}
+
+@keyframes sb-fade{
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .signature-inner{ animation: none; transform: none; opacity: 1; }
+}

@@ -6,6 +6,14 @@
   --gold-dark: #a67c2a; /* darker gold for contrast */
   --accent: var(--gold);
   --accent-dark: var(--gold-dark);
+  --cream: #e9dccb; /* warm cream for large serif titles */
+  --hero-copy: rgba(233, 220, 203, 0.92); /* copy color tuned to cream */
+  /* hero-specific shades (fine-tune the hero typography palette here) */
+  --hero-title-color: var(--cream); /* primary stacked title color */
+  --hero-title-strong: rgba(245,240,233,0.98); /* slightly stronger cream for emphasis */
+  --hero-copy-color: var(--hero-copy); /* paragraph/subtitle color in hero */
+  --hero-cta-color: var(--accent); /* CTA color within hero */
+  --hero-indicator: rgba(233,220,203,0.9); /* small circular indicator color */
   --surface: rgba(255, 255, 255, 0.03); /* cards and surfaces */
   --surface-2: rgba(255, 255, 255, 0.02); /* subtle alternate surface */
   --about-main-move: 14; /* px, main image vertical parallax strength */
@@ -122,11 +130,11 @@ button {
   padding: 0 20px;
 }
 .site-header {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 10001;
+  z-index: 30001;
   background: transparent;
 }
 
@@ -145,6 +153,23 @@ button {
   font-size: 1.1rem;
   font-weight: 700;
 }
+.site-header .logo{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.site-header .logo .brand-text{
+  font-family: Poppins, sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+@media (max-width: 420px){
+  .site-header .logo .brand-text{ display: none; }
+}
 .site-header .nav {
   position: static;
   background: transparent;
@@ -159,6 +184,15 @@ button {
   color: #fff;
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
 }
+
+/* when the hero is loading, make header more prominent */
+/* hide header during loading so the cinematic loader fully covers the page */
+body.hero-loading-active .site-header{
+  display: none !important;
+}
+
+/* prevent scroll while loader is active */
+body.hero-loading-active{ overflow: hidden; }
 
 /* ensure desktop nav brand matches header logo size */
 .site-header .nav .nav-brand {
@@ -220,22 +254,24 @@ button {
   color: var(--accent) !important;
 }
 
-/* mobile nav toggle */
+/* nav toggle (visible across sizes) */
 .nav-toggle {
-  display: none;
+  display: inline-flex;
   border: 0;
   background: transparent;
   color: var(--accent-dark);
   padding: 8px;
   border-radius: 10px;
   cursor: pointer;
+  align-items: center;
+  justify-content: center;
 }
 
 /* hide hamburger toggle when mobile overlay is open */
 .nav-toggle.open {
-  display: none !important;
-  pointer-events: none !important;
-  opacity: 0 !important;
+  /* remain visible when open so the icon can morph to a close state */
+  pointer-events: auto !important;
+  opacity: 1 !important;
 }
 .nav-toggle svg {
   display: block;
@@ -334,25 +370,305 @@ button {
   z-index: 2;
   pointer-events: none;
 }
+
+/* Loader moved to a dedicated component (src/components/Loader.jsx + loader.css) */
+
+.hero.hero-ready{ background-repeat:no-repeat; background-size:cover; background-position:center; }
+.hero.large-hero{ min-height: 84vh; display:flex; align-items:center; justify-content:center }
+.hero.hero-ready .slide-bg{ opacity: 0 !important; visibility: hidden !important }
+
+/* smooth background fade when final image is applied */
+.hero.bg-fade-in{ transition: background-image 400ms ease-in-out, opacity 600ms ease-in-out; opacity: 1 }
+
+/* final hero ready - slide background becomes visible, overlay keeps text readable */
+.hero.hero-ready .slide-bg{ transform: scale(1.06); transition: transform 1200ms cubic-bezier(0.22,0.9,0.2,1); }
+.hero:not(.hero-ready) .slide-bg,
+.hero:not(.hero-ready) .hero-overlay{
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.hero-overlay{ position:absolute; inset:0; z-index:8; display:flex; align-items:center; justify-content:center; pointer-events:auto; transition: opacity 420ms ease, visibility 420ms ease }
+.hero-overlay::before{ content:''; position:absolute; inset:0; background: linear-gradient(180deg, rgba(4,6,8,0.45), rgba(4,6,8,0.25)); z-index:0 }
+.hero-content{
+  position:relative;
+  z-index:2;
+  max-width:var(--container);
+  margin:0 auto;
+  padding: 40px 48px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-end; /* move text to the right */
+  text-align:right;
+}
+
+/* constrain text width so right column reads cleanly */
+.hero-content > * { max-width: 640px; width: 100%; }
+
+.hero-title{ color: #fff; }
+
+/* --- Hero grid and stacked title layout --- */
+.hero-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.hero-left{
+  align-self: center;
+  text-align: left;
+  pointer-events: auto; /* allow CTA interaction */
+  padding-right: 20px;
+  position: relative; /* fallback positioning for small screens */
+}
+
+/* Desktop: place title at bottom-right and descriptive copy on the left */
+@media (min-width: 900px){
+  .hero-left{
+  position: absolute;
+  left: clamp(28px, 4.5vw, 80px);
+  bottom: clamp(40px, 8vh, 120px);
+  transform: none;
+    max-width: 520px;
+    text-align: left;
+    padding-right: 0;
+    z-index: 20; /* above overlay tint */
+  }
+
+  .hero-right{
+    position: absolute;
+    right: clamp(48px, 6vw, 160px);
+    bottom: clamp(20px, 6vh, 120px);
+    z-index: 20;
+    pointer-events: none;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    text-align: right;
+  }
+  .hero-title--stack{ transform: none }
+}
+
+/* on very wide screens make the title larger and push it further toward the corner */
+@media (min-width: 1400px){
+  .hero-right{ right: clamp(48px, 8vw, 220px); bottom: clamp(40px, 9vh, 220px) }
+  .hero-title--stack{ font-size: clamp(7rem, 16vw, 18rem); line-height: 0.82 }
+}
+.hero-sub{
+  font-size: 1.18rem;
+  line-height: 1.5;
+  color: var(--hero-copy);
+  margin: 0 0 18px 0;
+  max-width: 520px; /* keep copy readable */
+  text-shadow: 0 6px 18px rgba(0,0,0,0.45);
+}
+.hero-ctas{ margin-top: 20px; display:flex; gap:12px }
+.hero-ctas .btn{ pointer-events: auto }
+
+.hero-right{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  pointer-events: none; /* decorative title, not interactive */
+}
+
+/* Stacked hero title — use Poppins only per design requirement */
+.hero-title--stack{
+  font-family: Poppins, sans-serif;
+  font-weight: 300;
+  color: var(--hero-title-color); /* themed hero title color */
+  margin: 0;
+  /* scale dynamically but cap extremes */
+  font-size: clamp(48px, 13.5vw, 220px);
+  line-height: 0.86; /* tighten lines so words overlap slightly like the reference */
+  letter-spacing: -0.02em;
+  text-align: right;
+  -webkit-font-smoothing: antialiased;
+  transform: translateY(6%);
+}
+
+.hero-title--stack br{ display:block }
+
+/* subtle responsive tweaks */
+@media (max-width: 980px){
+  .hero-grid{ gap: 28px }
+  .hero-sub{ font-size: 1.05rem; max-width: 420px }
+  .hero-title--stack{ font-size: clamp(44px, 18vw, 140px); line-height: 0.92 }
+  .hero-content{ padding: 28px 20px }
+}
+
+@media (max-width: 640px){
+  .hero-grid{ grid-template-columns: 1fr; text-align: center }
+  .hero-left{ order: 1; text-align: center; padding-right: 0 }
+  .hero-right{ order: 2; justify-content: center; margin-top: 8px }
+  .hero-title--stack{ font-size: clamp(32px, 12vw, 64px); line-height: 0.98; transform: none }
+  .hero-sub{ max-width: 100%; }
+  .hero-overlay{ padding: 28px 12px }
+}
+
+/* small circular down indicator (left column) */
+.hero-down{
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(233,220,203,0.12);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* positioned bottom-right of the left column */
+  position: absolute;
+  right: 0;
+  bottom: 28px;
+  color: var(--hero-indicator);
+  font-size: 18px;
+  background: rgba(233,220,203,0.02);
+  box-shadow: 0 6px 18px rgba(2,6,4,0.35);
+}
+
+/* left column vertical placement matching ref: pull copy lower on large screens */
+@media (min-width: 1100px){
+  .hero-left{ transform: translateY(6%); }
+}
+.hero-sub{
+  color: var(--hero-copy-color);
+  margin: 12px 0 20px;
+  max-width: 640px;
+  font-size: clamp(0.98rem, 1.2vw, 1.06rem);
+  line-height: 1.6;
+  font-weight: 400;
+  opacity: 0.95;
+}
+.hero-ctas{ display:flex; gap:16px; justify-content:flex-end; }
+
+/* two-column hero grid to match reference composition */
+.hero-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  align-items:center;
+  gap: 40px;
+  width:100%;
+}
+.hero-left{ padding: 40px 20px 40px 0; align-self: center }
+.hero-right{ display:flex; align-items:center; justify-content:flex-end }
+
+.hero-title--stack{
+  font-size: clamp(4rem, 11vw, 10rem);
+  line-height: 0.9;
+  font-family: Poppins, sans-serif;
+  font-weight: 700;
+  /* gold gradient fill with fallback */
+  background: linear-gradient(90deg, var(--gold-dark) 0%, var(--gold) 50%, #f7e9c8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--hero-title-strong); /* fallback for older browsers */
+  letter-spacing: 2px;
+  text-transform: none;
+  margin: 0;
+  text-align: right;
+  -webkit-font-smoothing:antialiased;
+  text-shadow: 0 6px 18px rgba(3,6,4,0.36);
+}
+
+/* nudge the headline lower and slightly inset on very wide screens */
+@media (min-width: 1400px){
+  .hero-right{ transform: translateY(8vh); }
+  .hero-title--stack{ font-size: clamp(6rem, 14vw, 14rem); }
+}
+
+@media (max-width: 900px){
+  .hero-grid{ grid-template-columns: 1fr; text-align:center }
+  .hero-right{ justify-content:center }
+  .hero-title--stack{ font-size: clamp(2.4rem, 9.8vw, 3.6rem); text-align:center }
+  .hero-left{ padding: 12px 0 }
+}
+
+/* cookie pill styling */
+
+@media (max-width: 640px){
+  .hero-down{ position: static; margin: 20px auto 0; }
+}
+.cookie-pill{
+  position: absolute;
+  left: 48%;
+  bottom: 44px;
+  transform: translateX(-48%);
+  display:flex;
+  align-items:center;
+  gap:14px;
+  background: rgba(246,241,236,0.95);
+  padding: 12px 18px;
+  border-radius: 40px;
+  box-shadow: 0 12px 40px rgba(2,6,18,0.18);
+  z-index: 50;
+}
+.cookie-copy{ font-family: Poppins, sans-serif; color: rgba(10,10,10,0.7); font-size: 0.88rem; letter-spacing: 0.02em }
+.cookie-accept{ background: transparent; border: 2px solid rgba(10,10,10,0.08); padding: 8px 14px; border-radius: 24px; color: rgba(10,10,10,0.9); font-weight:700 }
+.cookie-accept:hover{ background: var(--accent); color: #0b0b0b; border-color: rgba(10,10,10,0.06) }
+.btn.primary{ background:var(--accent); color:#fff; padding:12px 18px; border-radius:8px; box-shadow: 0 10px 30px rgba(6,10,20,0.35); }
+.btn.ghost{ background:transparent; color:#fff; padding:12px 18px; border-radius:8px; border:1px solid rgba(255,255,255,0.12) }
+
+@media (max-width: 800px){
+  .stack-img{ width:86%; }
+  .hero-ctas{ flex-direction:column; gap:12px }
+}
+
 /* duplicate selectors removed above */
 .hero-title {
-  font-family: Poppins, sans-serif;
-  font-size: clamp(2.8rem, 5.6vw, 4.2rem);
-  line-height: 0.95;
-  margin: 0;
+  font-family: Playfair Display, serif; /* elegant display serif */
+  font-size: clamp(2rem, 5.2vw, 4rem);
+  line-height: 0.98;
+  margin: 0 0 8px;
   color: #fff; /* white main title for contrast over hero images */
   position: relative;
-  text-shadow: 0 6px 20px rgba(0,0,0,0.55); /* subtle lift over images */
+  text-shadow: 0 8px 26px rgba(0,0,0,0.6); /* stronger lift over images */
   letter-spacing: 4px;
   text-transform: uppercase;
+  font-weight: 700;
+}
+.hero-title::after{
+  content: '';
+  display: block;
+  width: 84px;
+  height: 4px;
+  background: linear-gradient(90deg, rgba(197,158,74,1), rgba(166,124,42,1));
+  margin-top: 12px;
+  margin-left: auto; /* keep the rule aligned to the right */
+  border-radius: 2px;
 }
 .hero-sub {
   max-width: 760px;
-  color: var(--accent);
+  color: rgba(255,255,255,0.9);
   opacity: 0.95;
-  font-style: italic;
+  font-style: normal; /* keep subtitle readable (not always italic) */
   margin-top: 18px;
-  font-size: 1.25rem;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  line-height: 1.45;
+  font-weight: 500;
+}
+
+.hero-title, .hero-sub { text-decoration: none; }
+
+/* Ensure stacked hero title uses normal case (override global .hero-title uppercase) */
+.hero-title.hero-title--stack {
+  text-transform: none;
+}
+
+@media (max-width: 900px){
+  /* collapse to centered layout on smaller screens */
+  .hero-content{ align-items:center; text-align:center; padding: 28px 20px }
+  .hero-ctas{ justify-content:center }
+  .hero-title::after{ margin-left: 0; margin-right: auto }
+}
+
+@media (max-width: 520px){
+  .hero-title{ font-size: clamp(1.6rem, 6.6vw, 2.2rem); letter-spacing: 3px; }
+  .hero-sub{ font-size: 0.98rem; margin-top: 12px; }
+  .hero-title::after{ width: 56px; height:5px; margin-top:12px }
 }
 
 /* subtitle remains gold as part of the white+gold mix */
@@ -1049,8 +1365,8 @@ copyright {
   .header-inner {
     position: relative;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+  align-items: center;
+  justify-content: center; /* center brand by default */
     gap: 12px;
   }
 }
@@ -1106,88 +1422,7 @@ copyright {
   border-color: rgba(197,158,74,0.95);
 }
 
-/* right circular arrows (positioned at bottom-right of hero) */
-.hero-arrows {
-  position: absolute;
-  right: 110px; /* increased inset from right edge */
-  bottom: 80px; /* increased bottom margin */
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  z-index: 30;
-}
-.hero-arrows .arrow {
-  width: 44px; /* smaller button */
-  height: 44px;
-  border-radius: 50%;
-  background: var(--accent); /* gold background */
-  border: 1px solid rgba(0,0,0,0.08);
-  color: #fff; /* white glyph by default */
-  font-size: 12px; /* make inner arrow glyph smaller */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
-  cursor: pointer;
-  transition:
-    transform 160ms ease,
-    background 140ms ease,
-    box-shadow 140ms ease,
-    color 140ms ease;
-  backdrop-filter: blur(2px);
-}
-.hero-arrows .arrow:hover {
-  transform: translateY(-2px) scale(1.02);
-  background: var(--accent-dark);
-  color: #fff; /* invert glyph on hover for contrast over darker gold */
-  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.48);
-}
-
-/* ensure inline SVG icons are crisp and sized correctly (filled icons) */
-.hero-arrows .arrow svg {
-  display: block;
-  width: 16px;
-  height: 16px;
-  fill: currentColor;
-  stroke: none;
-}
-
-/* slightly lighten the button background so filled white icons read clearly */
-.hero-arrows .arrow {
-  background: rgba(0, 0, 0, 0.5);
-}
-
-/* Remove Swiper's built-in pseudo-element arrows to avoid duplicate icons */
-.swiper-button-next::after,
-.swiper-button-prev::after {
-  display: none !important;
-  content: none !important;
-}
-
-.hero-arrows .arrow:focus {
-  outline: 3px solid rgba(255, 255, 255, 0.12);
-  outline-offset: 4px;
-  transform: scale(1.04);
-}
-
-/* improve hit area on small screens */
-@media (max-width: 600px) {
-  /* on small screens, keep arrows at the right but with slightly reduced size/spacing */
-  .hero-arrows {
-    right: 80px; /* more inset on small screens */
-    bottom: 56px; /* increase bottom margin on small screens */
-    gap: 8px;
-  }
-  .hero-arrows .arrow {
-    width: 40px;
-    height: 40px;
-    font-size: 10px; /* smaller inner glyph on mobile */
-  }
-  .hero-arrows .arrow svg {
-    width: 14px;
-    height: 14px;
-  }
-}
+/* hero arrows removed - styles cleared */
 
 /* theater mode toggle in header */
 .theater-toggle {
@@ -1250,16 +1485,23 @@ copyright {
     display: none !important;
   }
   .nav-toggle {
-    display: none !important;
+    display: inline-flex !important; /* keep toggle visible on desktop */
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    margin-right: 6px;
+    background: transparent;
+    border: 0;
+    color: var(--muted);
   }
 }
 
 /* Desktop header layout: brand and nav on one row */
 @media (min-width: 801px) {
   .container.header-inner {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    justify-content: flex-start;
     gap: 24px;
     padding: 18px 20px;
   }
@@ -1269,13 +1511,26 @@ copyright {
   .logo {
     margin: 0;
   }
-  /* push nav to the right of the header */
-  .container.header-inner .nav {
-    margin-left: auto;
+  /* left / center / right header areas */
+  .header-left{ display:flex; align-items:center; gap:16px; justify-content:flex-start }
+  .brand{ justify-self:center }
+  .header-right{ display:flex; align-items:center; gap:18px; justify-content:flex-end }
+  .header-right .contact-link{ letter-spacing: 2px; color: var(--cream); text-decoration:none; font-size:0.95rem }
+  .header-left .menu-label{ letter-spacing: 2px; color: var(--cream); background: transparent; border: none; font-size:0.95rem; cursor:pointer }
+  .nav-toggle{ color: var(--cream); }
+  /* make the toggle icon thinner and slightly smaller to match the reference */
+  .nav-toggle svg { width: 26px; height: 18px }
+  .nav-toggle path { stroke-width: 2; stroke: rgba(245,240,233,0.95) }
+  .fav{ background: transparent; border: 0; color: var(--cream); font-size: 18px }
+
+  /* ensure toggle sits inline and left of the MENU label on large screens */
+  .header-left .nav-toggle{
+    position: static !important;
+    margin-right: 8px;
+    order: 0;
   }
-  .container.header-inner .nav a {
-    margin: 0 16px;
-  }
+  .header-left .menu-label{ order: 1; margin-right: 12px }
+  .header-left .nav-link{ order: 2 }
 }
 
 /* better hit target for toggle on small screens */
@@ -1293,6 +1548,26 @@ copyright {
   .brand .tag {
     font-size: 0.75rem;
   }
+}
+
+/* Mobile header: brand left, residences centered, fav + toggle right */
+@media (max-width: 800px) {
+  .container.header-inner {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    padding: 12px 16px;
+  }
+  .brand{ justify-self: start }
+  .header-left{ justify-self: center; display:flex; align-items:center; gap:8px }
+  .header-left .menu-label{ display: none }
+  /* position the toggle visually on the right (absolute) so it appears next to the heart */
+  .header-left .nav-toggle{ position: absolute; right: 18px; top: 14px; }
+  .header-right{ justify-self: end; display:flex; gap:14px; align-items:center }
+  .header-right .contact-link{ display: none }
+  .fav{ font-size:18px; color: var(--cream) }
+  /* hide favorite heart on mobile */
+  .fav{ display: none }
 }
 
 /* Ensure toggle and close share the same hit area and alignment so X sits exactly on the hamburger */

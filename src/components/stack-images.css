@@ -1,0 +1,67 @@
+.stack-wrap-component{
+	width: 100%;
+	max-width: 980px;
+	margin: 0 auto;
+	pointer-events: none; /* decorative */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 8px 12px;
+	box-sizing: border-box;
+}
+
+:root{
+	--stack-frame-border: 6px;
+	--stack-frame-radius: 12px;
+	--stack-shadow: 0 18px 48px rgba(6,10,18,0.62);
+}
+
+.stack{
+	position: relative;
+	width: min(86%, 900px);
+	height: clamp(280px, 38vw, 520px);
+	display: block;
+	/* ensure the stack sits centered in its container */
+	margin: 0 auto;
+}
+
+.stack-img{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	/* use translate to center, then additional translate offsets in modifiers */
+	transform: translate(-50%, -50%);
+	width: 72%;
+	height: auto;
+	max-height: 92%;
+	object-fit: cover;
+	border-radius: var(--stack-frame-radius);
+	box-shadow: var(--stack-shadow);
+	border: var(--stack-frame-border) solid rgba(255,255,255,0.06);
+	will-change: opacity, clip-path;
+}
+
+/* Slight offsetting/rotation to create the stacked feel. Tuned for 3 images but flexible. */
+.stack-0{ transform: translate(calc(-50% - 36px), calc(-50% + 28px)) rotate(-3.4deg); transform-origin:center }
+.stack-1{ transform: translate(-50%, -50%) rotate(0deg); transform-origin:center }
+.stack-2{ transform: translate(calc(-50% + 36px), calc(-50% - 28px)) rotate(3.4deg); transform-origin:center }
+
+/* If there are more or fewer images, keep them centered and layered */
+.stack-img:not(.stack-0):not(.stack-1):not(.stack-2){
+	transform: translate(-50%, -50%) rotate(0deg);
+}
+
+@media (max-width: 1000px){
+	.stack{ height: 420px }
+	.stack-img{ width: 82% }
+}
+
+@media (max-width: 520px){
+	.stack{ height: 260px }
+	.stack-img{ width: 94%; border-radius: 8px; --stack-frame-border: 4px }
+}
+
+/* Respect user's OS reduced-motion preference */
+@media (prefers-reduced-motion: reduce){
+	.stack * { transition: none !important; animation: none !important; }
+}
