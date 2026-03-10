@@ -16,7 +16,7 @@ export default function ServicesGrid(){
             <div className="card-media">
               <img src={item.img} alt={item.label} loading="lazy" />
             </div>
-            <div className="card-caption">{item.label} <span className="arrow">→</span></div>
+            <div className="card-caption">{item.label}</div>
           </a>
         ))}
       </div>

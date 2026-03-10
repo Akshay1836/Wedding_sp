@@ -1422,6 +1422,16 @@ copyright {
   border-color: rgba(197,158,74,0.95);
 }
 
+/* Remove left/right navigation arrows site-wide (not needed) */
+.swiper-button-prev,
+.swiper-button-next,
+.gallery-section .swiper-button-prev,
+.gallery-section .swiper-button-next,
+.hero-arrows,
+.arrow {
+  display: none !important;
+}
+
 /* hero arrows removed - styles cleared */
 
 /* theater mode toggle in header */
