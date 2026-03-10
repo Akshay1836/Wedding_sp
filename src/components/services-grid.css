@@ -53,6 +53,19 @@
 .grid-card:hover .card-media img {
   transform: translateY(-8px) scale(1.02);
 }
+.grid-card:hover .card-caption {
+  color: #fff; /* caption becomes white on hover */
+}
+.grid-card:hover .card-caption .arrow,
+.grid-card:hover .card-caption svg {
+  color: var(--accent);
+  fill: var(--accent); /* if icon is SVG use fill */
+}
+
+.grid-card:focus-within .card-caption,
+.grid-card:focus .card-caption {
+  color: #fff;
+}
 .card-caption {
   margin-top: 12px;
   font-weight: 700;

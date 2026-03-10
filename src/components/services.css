@@ -57,10 +57,13 @@
 
 /* Centering layout: use a wrapping flexbox so incomplete final rows center automatically */
 .services-grid {
-  display: flex;
-  flex-wrap: wrap;
+  /* responsive grid with centered last row and equal-height cards */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 320px));
   gap: 28px;
-  justify-content: center; /* center rows when they don't fill the full width */
+  justify-content: center; /* center grid when last row is incomplete */
+  align-items: stretch;
+  grid-auto-rows: 1fr; /* forces equal-height rows */
 }
 
 
@@ -80,7 +83,6 @@
   position: relative;
   overflow: hidden;
   height: 100%; /* ensure grid items stretch to equal height */
-  flex: 1 1 260px; /* flexible base width */
   max-width: 320px; /* keep cards a consistent maximum width */
 }
 .service-card::after {
@@ -193,7 +195,7 @@
   .service-card {
   padding: 16px;
   border-radius: 12px;
-  flex-basis: 100%;
+  width: 100%;
   max-width: none;
   }
   .services-hero {

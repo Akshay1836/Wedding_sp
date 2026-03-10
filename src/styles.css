@@ -1122,7 +1122,7 @@ copyright {
   border-radius: 50%;
   background: var(--accent); /* gold background */
   border: 1px solid rgba(0,0,0,0.08);
-  color: #0b0b0b; /* dark glyph on gold */
+  color: #fff; /* white glyph by default */
   font-size: 12px; /* make inner arrow glyph smaller */
   display: flex;
   align-items: center;
