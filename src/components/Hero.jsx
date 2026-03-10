@@ -4,9 +4,9 @@ import React, { useState, useRef, useEffect } from 'react'
 import Loader from './Loader'
 
 const slides = [
-         { id: 3, img: '/wed27.jpg', alt: 'wedding 3' },
-  { id: 1, img: '/wed27.jpg', alt: 'wedding 1' },
-  { id: 2, img: '/wed27.jpg', alt: 'wedding 2' }
+         { id: 3, img: '/wed28.jpg', alt: 'wedding 3' },
+  { id: 1, img: '/wed28.jpg', alt: 'wedding 1' },
+  { id: 2, img: '/wed28.jpg', alt: 'wedding 2' }
  
 ]
 
