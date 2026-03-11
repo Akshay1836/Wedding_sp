@@ -129,6 +129,21 @@ button {
   border-color: rgba(255, 255, 255, 0.06);
 }
 
+/* Theme dropdown list items; without this many browsers show white option menus by default */
+select {
+  color-scheme: dark;
+}
+
+select option {
+  background: #111111;
+  color: #f7f3ec;
+}
+
+select option:checked {
+  background: #2b2517;
+  color: #f3e7cc;
+}
+
 /* utility surfaces */
 .surface-2 {
   background: var(--surface-2);
@@ -247,8 +262,9 @@ button {
 .site-header .logo{
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 0;
 }
+
 .site-header .logo .brand-text{
   font-family: Poppins, sans-serif;
   font-size: 0.9rem;
@@ -258,8 +274,11 @@ button {
   text-transform: uppercase;
 }
 
-@media (max-width: 420px){
-  .site-header .logo .brand-text{ display: none; }
+@media (max-width: 700px) {
+  .site-header .logo .brand-text {
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+  }
 }
 .site-header .nav {
   position: static;

@@ -158,6 +158,17 @@
 
 .details-form select {
   appearance: none;
+  color-scheme: dark;
+}
+
+.details-form select option {
+  background: #111111;
+  color: #f7f3ec;
+}
+
+.details-form select option:checked {
+  background: #2b2517;
+  color: #f3e7cc;
 }
 
 .details-form input:hover,
@@ -189,9 +200,21 @@
   transform: translateY(-1px);
 }
 
+.details-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .details-success {
   margin: 4px 0 0;
   color: var(--accent);
+  font-size: 0.95rem;
+}
+
+.details-error {
+  margin: 4px 0 0;
+  color: #ffb3b3;
   font-size: 0.95rem;
 }
 

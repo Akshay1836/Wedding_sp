@@ -19,4 +19,14 @@ Files of interest:
 - `src/components/*` — site components
 - `src/styles.css` — styling
 
+Form email setup:
+- Create a `.env` file in the project root.
+- Add these values from EmailJS:
+- `VITE_INQUIRY_EMAIL=your-email@example.com`
+- `VITE_EMAILJS_SERVICE_ID=your_service_id`
+- `VITE_EMAILJS_TEMPLATE_ID=your_template_id`
+- `VITE_EMAILJS_PUBLIC_KEY=your_public_key`
+- Restart the dev server after changing `.env`.
+- In your EmailJS template, map variables like `full_name`, `reply_to`, `phone`, `wedding_date`, and `notes`.
+
 Next steps: install dependencies and run the dev server. You can customize text, images, and colors in the styles.

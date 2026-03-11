@@ -18,7 +18,10 @@ const initialData = {
 
 export default function DetailsForm() {
   const [formData, setFormData] = useState(initialData)
-  const [submitted, setSubmitted] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState('idle')
+  const [submitError, setSubmitError] = useState('')
+
+  const inquiryEmail = String(import.meta.env.VITE_INQUIRY_EMAIL || '').trim()
 
   const requiredFields = ['fullName', 'email', 'phone', 'weddingDate', 'venue', 'budget']
   const completedRequired = useMemo(
@@ -35,13 +38,62 @@ export default function DetailsForm() {
   function handleChange(event) {
     const { name, value } = event.target
     setFormData((prev) => ({ ...prev, [name]: value }))
-    if (submitted) setSubmitted(false)
+    if (submitStatus !== 'idle') {
+      setSubmitStatus('idle')
+      setSubmitError('')
+    }
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault()
-    setSubmitted(true)
-    setFormData(initialData)
+
+    if (!inquiryEmail) {
+      setSubmitStatus('error')
+      setSubmitError('Recipient email is not configured yet.')
+      return
+    }
+
+    setSubmitStatus('sending')
+    setSubmitError('')
+
+    try {
+      const endpoint = `https://formsubmit.co/ajax/${encodeURIComponent(inquiryEmail)}`
+
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          _subject: `New Wedding Inquiry - ${formData.fullName || 'Website Form'}`,
+          _template: 'table',
+          _captcha: 'false',
+          fullName: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          weddingDate: formData.weddingDate,
+          eventType: formData.eventType,
+          venue: formData.venue,
+          guests: formData.guests,
+          budget: formData.budget,
+          coverage: formData.coverage,
+          preferredContact: formData.preferredContact,
+          notes: formData.notes,
+          sourcePage: window.location.href,
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to send inquiry')
+      }
+
+      setSubmitStatus('success')
+      setFormData(initialData)
+    } catch {
+      setSubmitStatus('error')
+      setSubmitError('Could not send your details right now. Please try again.')
+    }
   }
 
   return (
@@ -128,7 +180,8 @@ export default function DetailsForm() {
               placeholder="+91 98765 43210"
               autoComplete="tel"
               inputMode="tel"
-              pattern="[0-9+\-()\s]{8,}"
+              minLength={8}
+              maxLength={20}
               required
             />
             <small className="field-help">Include country code for faster callback.</small>
@@ -224,13 +277,25 @@ export default function DetailsForm() {
             />
           </label>
 
-          <button type="submit" className="details-submit-btn">
-            Submit Inquiry
+          <button type="submit" className="details-submit-btn" disabled={submitStatus === 'sending'}>
+            {submitStatus === 'sending' ? 'Sending...' : 'Submit Inquiry'}
           </button>
 
-          {submitted && (
+          {submitStatus === 'success' && (
             <p className="details-success" role="status">
               Thank you. Your details have been received. We will contact you shortly.
+            </p>
+          )}
+
+          {submitStatus === 'error' && (
+            <p className="details-error" role="alert">
+              {submitError}
+            </p>
+          )}
+
+          {!inquiryEmail && (
+            <p className="details-error" role="note">
+              Configure <code>VITE_INQUIRY_EMAIL</code> in <code>.env</code> to enable email delivery.
             </p>
           )}
         </motion.form>

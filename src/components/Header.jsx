@@ -65,12 +65,11 @@ export default function Header(){
           {/* ToggleButton immediately left of RESIDENCES */}
           <ToggleButton open={open} setOpen={setOpen} />
           <span className="menu-label" role="button" onClick={() => setOpen(true)}>MENU</span>
-          <Link to="/#home" className="nav-link">PHOTOGRAPHY</Link>
         </div>
 
         <div className="brand">
           <Link to="/" className="logo" aria-label="Home">
-            <span className="brand-text">WEDDING</span>
+            <span className="brand-text">CINEMOTION PICTURES</span>
           </Link>
         </div>
 
