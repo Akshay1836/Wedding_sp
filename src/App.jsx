@@ -5,6 +5,7 @@ import HomePage from './HomePage'
 import DetailsFormPage from './DetailsFormPage'
 import OtherDetailsPage from './OtherDetailsPage'
 import GalleryPage from './GalleryPage'
+import PageTransitionOverlay from './components/PageTransitionOverlay'
 
 export default function App(){
   return (
@@ -17,6 +18,7 @@ export default function App(){
         <Route path="/what-we-do" element={<OtherDetailsPage />} />
         <Route path="/other-details" element={<OtherDetailsPage />} />
       </Routes>
+      <PageTransitionOverlay />
     </div>
   )
 }

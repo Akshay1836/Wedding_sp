@@ -38,6 +38,29 @@ body {
   background: var(--bg);
 }
 
+.route-transition-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 50% 46%, rgba(175, 158, 118, 0.16), transparent 44%),
+    linear-gradient(180deg, rgba(8, 8, 8, 0.98), rgba(13, 13, 13, 0.98));
+  pointer-events: none;
+}
+
+.route-transition-title {
+  margin: 0;
+  font-size: clamp(2.35rem, 6.4vw, 4.6rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: rgba(175, 158, 118, 0.92);
+  text-transform: uppercase;
+  text-shadow: 0 10px 34px rgba(175, 158, 118, 0.2);
+}
+
 /* Global theme overrides to enforce black & gold palette across components */
 /* Headings use gold accent to emphasize titles; body text stays muted pale for readability */
 h1,
