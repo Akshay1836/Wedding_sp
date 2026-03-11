@@ -1,6 +1,34 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
+import { motion } from 'framer-motion'
 import ToggleButton from './ToggleButton'
+
+const navVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      duration: 0.3,
+      ease: 'easeOut',
+      staggerChildren: 0.06,
+      delayChildren: 0.05,
+    },
+  },
+}
+
+const navItemVariants = {
+  hidden: { opacity: 0, x: 26, y: 6, scale: 0.99 },
+  show: {
+    opacity: 1,
+    x: 0,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.38,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+}
 
 export default function Header(){
   const [open, setOpen] = useState(false)
@@ -34,17 +62,17 @@ export default function Header(){
           {/* ToggleButton immediately left of RESIDENCES */}
           <ToggleButton open={open} setOpen={setOpen} />
           <span className="menu-label" role="button" onClick={() => setOpen(true)}>MENU</span>
-          <a href="#residences" className="nav-link">PHOTOGRAPHY</a>
+          <a href="/#home" className="nav-link">PHOTOGRAPHY</a>
         </div>
 
         <div className="brand">
-          <a href="#home" className="logo" aria-label="Home">
+          <a href="/" className="logo" aria-label="Home">
             <span className="brand-text">WEDDING</span>
           </a>
         </div>
 
         <div className="header-right">
-          <a href="#contact" className="contact-link">CONTACT US</a>
+          <a href="/details-form" className="contact-link">CONTACT</a>
           <button className="fav" aria-label="Favorites">♡</button>
         </div>
 
@@ -53,19 +81,23 @@ export default function Header(){
 
       {/* render overlay nav as a portal when `open` is true (works on mobile and desktop) */}
       {open && createPortal(
-        <nav
+        <motion.nav
           id="primary-navigation"
           ref={navRef}
           className={`nav ${open ? 'open' : ''}`}
           aria-hidden={!open}
           onClick={close}
+          variants={navVariants}
+          initial="hidden"
+          animate="show"
         >
           {/* overlay uses header toggle as control, so no separate close button here */}
 
-          <a className="nav-link" href="#home">Home</a>
-          <a className="nav-link" href="#about">About</a>
-          <a className="nav-link" href="#services">Services</a>
-        </nav>,
+          <motion.a className="nav-link" href="/" variants={navItemVariants}>Home</motion.a>
+          <motion.a className="nav-link" href="/gallery" variants={navItemVariants}>Gallery</motion.a>
+          <motion.a className="nav-link" href="/details-form" variants={navItemVariants}>Contact</motion.a>
+          <motion.a className="nav-link" href="/what-we-do" variants={navItemVariants}>What We Do</motion.a>
+        </motion.nav>,
         document.body
       )}
     </header>

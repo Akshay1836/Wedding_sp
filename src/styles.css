@@ -2,8 +2,8 @@
   /* Black & Gold theme */
   --bg: #0b0b0b; /* deep black background */
   --muted: rgba(255, 255, 255, 0.9); /* pale text for readability on dark bg */
-  --gold: #c59e4a; /* primary gold accent */
-  --gold-dark: #a67c2a; /* darker gold for contrast */
+  --gold: #AF9E76; /* primary accent */
+  --gold-dark: #8f8060; /* darker accent for contrast */
   --accent: var(--gold);
   --accent-dark: var(--gold-dark);
   --cream: #e9dccb; /* warm cream for large serif titles */
@@ -167,12 +167,17 @@ button {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   font-weight: 700;
-  margin: 8px 0;
+  margin: 5px 0;
+  padding-left: 24px;
+}
+
+.nav.open a:first-of-type {
+  margin-top: 20px;
 }
 
 .nav.open a:hover,
 .nav.open a:focus {
-  color: #ffd97a; /* lighter gold on hover */
+  color: #c9bca0; /* lighter accent on hover */
   text-decoration: none;
   transform: translateY(-2px);
 }
@@ -290,7 +295,7 @@ body.hero-loading-active{ overflow: hidden; }
 }
 .nav {
   display: flex;
-  gap: 28px;
+  gap: 22px;
   align-items: center;
 }
 .nav a {
@@ -641,7 +646,7 @@ body.hero-loading-active .hero-overlay {
   font-family: Poppins, sans-serif;
   font-weight: 700;
   /* gold gradient fill with fallback */
-  background: linear-gradient(90deg, var(--gold-dark) 0%, var(--gold) 50%, #f7e9c8 100%);
+  background: linear-gradient(90deg, var(--gold-dark) 0%, var(--gold) 50%, #d8ccb3 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1603,7 +1608,7 @@ copyright {
     margin: 0;
   }
   /* left / center / right header areas */
-  .header-left{ display:flex; align-items:center; gap:16px; justify-content:flex-start }
+  .header-left{ display:flex; align-items:center; gap:6px; justify-content:flex-start }
   .brand{ justify-self:center }
   .header-right{ display:flex; align-items:center; gap:18px; justify-content:flex-end }
   .header-right{ display:flex; align-items:center; gap:12px; justify-content:flex-end }
@@ -1620,10 +1625,10 @@ copyright {
   /* ensure toggle sits inline and left of the MENU label on large screens */
   .header-left .nav-toggle{
     position: static !important;
-    margin-right: 8px;
+    margin-right: 2px;
     order: 0;
   }
-  .header-left .menu-label{ order: 1; margin-right: 12px }
+  .header-left .menu-label{ order: 1; margin-right: 14px }
   .header-left .nav-link{ order: 2 }
 }
 
@@ -1667,7 +1672,7 @@ copyright {
   .fav:hover,
   .fav:focus {
     transform: translateY(-2px) scale(1.03);
-    color: #ffd97a;
+    color: #c9bca0;
     outline: none;
   }
 }
