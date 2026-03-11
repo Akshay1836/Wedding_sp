@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import './other-details.css'
 
 const servicePillars = [
@@ -219,7 +220,7 @@ export default function OtherDetails() {
             <h3>Ready To Plan Your Coverage?</h3>
             <p>Share your date and venue, and we will suggest the best plan for your events.</p>
           </div>
-          <a href="/details-form" className="other-cta-btn">Go To Inquiry Form</a>
+          <Link to="/details-form" className="other-cta-btn">Go To Inquiry Form</Link>
         </motion.section>
       </div>
     </section>

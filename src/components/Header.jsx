@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import ToggleButton from './ToggleButton'
+
+const MotionLink = motion(Link)
 
 const navVariants = {
   hidden: { opacity: 0 },
@@ -62,17 +65,17 @@ export default function Header(){
           {/* ToggleButton immediately left of RESIDENCES */}
           <ToggleButton open={open} setOpen={setOpen} />
           <span className="menu-label" role="button" onClick={() => setOpen(true)}>MENU</span>
-          <a href="/#home" className="nav-link">PHOTOGRAPHY</a>
+          <Link to="/#home" className="nav-link">PHOTOGRAPHY</Link>
         </div>
 
         <div className="brand">
-          <a href="/" className="logo" aria-label="Home">
+          <Link to="/" className="logo" aria-label="Home">
             <span className="brand-text">WEDDING</span>
-          </a>
+          </Link>
         </div>
 
         <div className="header-right">
-          <a href="/details-form" className="contact-link">CONTACT</a>
+          <Link to="/details-form" className="contact-link">CONTACT</Link>
           <button className="fav" aria-label="Favorites">♡</button>
         </div>
 
@@ -93,10 +96,10 @@ export default function Header(){
         >
           {/* overlay uses header toggle as control, so no separate close button here */}
 
-          <motion.a className="nav-link" href="/" variants={navItemVariants}>Home</motion.a>
-          <motion.a className="nav-link" href="/gallery" variants={navItemVariants}>Gallery</motion.a>
-          <motion.a className="nav-link" href="/details-form" variants={navItemVariants}>Contact</motion.a>
-          <motion.a className="nav-link" href="/what-we-do" variants={navItemVariants}>What We Do</motion.a>
+          <MotionLink className="nav-link" to="/" variants={navItemVariants}>Home</MotionLink>
+          <MotionLink className="nav-link" to="/gallery" variants={navItemVariants}>Gallery</MotionLink>
+          <MotionLink className="nav-link" to="/details-form" variants={navItemVariants}>Contact</MotionLink>
+          <MotionLink className="nav-link" to="/what-we-do" variants={navItemVariants}>What We Do</MotionLink>
         </motion.nav>,
         document.body
       )}

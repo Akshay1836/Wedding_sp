@@ -1,6 +1,9 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import './fabulous-gallery.css'
+
+const MotionLink = motion(Link)
 
 const galleryImages = [
   { src: '/wed1.jfif', alt: 'Joyful pre-ceremony candid frame', size: 'mid' },
@@ -115,15 +118,15 @@ export default function FabulousGallery() {
             <h3>Love This Visual Style?</h3>
             <p className="gallery-cta-sub">Tell us your date, city, and vision. We will craft a tailored wedding coverage plan.</p>
           </div>
-          <motion.a
-            href="/details-form"
+          <MotionLink
+            to="/details-form"
             className="gallery-cta-btn"
             whileHover={{ y: -3, scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             transition={{ type: 'spring', stiffness: 240, damping: 18 }}
           >
             <span>Book Your Date</span>
-          </motion.a>
+          </MotionLink>
         </motion.div>
       </div>
     </section>
