@@ -20,7 +20,7 @@ export default function SignatureBlock(){
       <img className="signature-sign" src="/wed20.jpg" alt="signature" />
       <div className="signature-meta">
         <div className="meta-name">The Creative Team</div>
-        <div className="meta-role">Wedding Storytellers</div>
+        <div className="meta-role">CINEMOTION PICTURES</div>
       </div>
     </div>
   </div>
