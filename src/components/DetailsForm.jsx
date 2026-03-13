@@ -109,8 +109,7 @@ export default function DetailsForm() {
           >
             <p className="details-form-kicker">Inquiry Form</p>
             <h2 id="details-form-heading" className="details-title-stack">
-              <span>PLAN YOUR STORY</span>
-              <span>WITH US</span>
+              <span className="details-title-line"><span className="line-white-word">PLAN</span> YOUR STORY</span>
             </h2>
             <p className="details-form-sub details-hero-lead">
               Share your details and we will reach out with availability, curated collections, and timeline guidance.
@@ -278,7 +277,7 @@ export default function DetailsForm() {
           </label>
 
           <button type="submit" className="details-submit-btn" disabled={submitStatus === 'sending'}>
-            {submitStatus === 'sending' ? 'Sending...' : 'Submit Inquiry'}
+            {submitStatus === 'sending' ? 'Sending...' : 'Submit'}
           </button>
 
           {submitStatus === 'success' && (

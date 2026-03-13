@@ -124,6 +124,21 @@
   height: 100%;
 }
 
+.site-footer:not(.alt-footer) .footer-meta {
+  grid-column: 1 / -1;
+  margin-top: 6px;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 14px;
+}
+
+.site-footer:not(.alt-footer) .footer-meta p {
+  margin: 0;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  color: rgba(245, 239, 226, 0.72);
+}
+
 @media (max-width: 900px) {
   .site-footer:not(.alt-footer) .footer-grid {
     grid-template-columns: 1fr;
@@ -132,5 +147,10 @@
     justify-content: start;
     flex-direction: row;
     gap: 8px;
+  }
+
+  .site-footer:not(.alt-footer) .footer-meta {
+    margin-top: 2px;
+    padding-top: 10px;
   }
 }

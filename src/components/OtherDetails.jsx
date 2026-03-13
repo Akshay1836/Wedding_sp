@@ -81,8 +81,7 @@ export default function OtherDetails() {
           <div>
             <p className="other-kicker">What We Do</p>
             <h2 id="other-details-heading" className="other-title-stack">
-              {/* <span>WHAT WE DO</span> */}
-              <span>WEDDING STORIES</span>
+              <span className="other-title-line"><span className="line-white-word">WEDDING</span> STORIES</span>
             </h2>
             <p className="other-hero-lead">
               We blend classic portraiture with documentary storytelling, so your wedding photos and films feel both timeless and personal.
@@ -102,7 +101,9 @@ export default function OtherDetails() {
               </div>
             </div>
           </div>
-          <img src="/wed46.jpg" alt="Wedding details and planning" className="other-hero-image" loading="lazy" />
+          <div className="other-hero-collage" aria-hidden="true">
+            <img src="/wed40.jfif" alt="" className="other-hero-image main" loading="lazy" />
+          </div>
         </motion.div>
 
         <div className="other-details-grid slim-grid">
