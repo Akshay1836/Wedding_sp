@@ -43,7 +43,7 @@ export default function VideoHero(){
 
       <div className="video-overlay">
         <div className="video-inner">
-          <h2 className="video-title">WEDDING</h2>
+          <h2 className="video-title">CINEMOTION PICTURES</h2>
         </div>
         <button className="mute-toggle" onClick={toggleMute} aria-label="Toggle sound">
           {muted ? '🔇' : '🔊'}

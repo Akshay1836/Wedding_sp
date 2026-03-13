@@ -73,58 +73,65 @@
 /* merged into the main .service-card block further down to avoid duplicates */
 
 .service-card {
-  background: rgba(255,255,255,0.02); /* subtle card surface */
-  border-radius: 12px;
-  padding: 24px;
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.015));
+  border-radius: 16px;
+  padding: 24px 22px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.55);
+  gap: 14px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.52);
   transition: transform 260ms cubic-bezier(.2,.9,.2), box-shadow 260ms ease, border-color 260ms ease;
-  border: 1px solid rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
   position: relative;
   overflow: hidden;
   height: 100%; /* ensure grid items stretch to equal height */
   max-width: 320px; /* keep cards a consistent maximum width */
+  backdrop-filter: blur(2px);
 }
 .service-card::after {
-  /* minimal decorative accent kept subtle and very low-contrast */
+  /* soft radial glow for depth */
   content: "";
   position: absolute;
-  right: -24px;
-  bottom: -24px;
-  width: 120px;
-  height: 120px;
-  background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.02), transparent 30%);
-  transform: rotate(6deg);
+  right: -34px;
+  top: -34px;
+  width: 140px;
+  height: 140px;
+  background-image: radial-gradient(circle at 50% 50%, rgba(175, 158, 118, 0.2), transparent 52%);
   pointer-events: none;
 }
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
 .service-card:hover {
-  transform: translateY(-6px) scale(1.01);
-  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.6);
+  transform: translateY(-8px) scale(1.012);
+  border-color: rgba(175, 158, 118, 0.42);
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.62), 0 0 0 1px rgba(175, 158, 118, 0.16);
 }
 
 .card-icon {
-  width: 72px;
-  height: 72px;
+  width: 76px;
+  height: 76px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(
-    180deg,
-    var(--accent) 0%,
-    var(--accent-dark) 100%
-  );
+  background: radial-gradient(circle at 32% 26%, #d8c9a9 0%, var(--accent) 52%, var(--accent-dark) 100%);
   color: #fff;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.55);
-  flex: 0 0 72px;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.52), 0 0 0 6px rgba(175, 158, 118, 0.12);
+  flex: 0 0 76px;
   transition: transform 260ms ease, box-shadow 260ms ease;
-  margin: 0 auto 8px;
+  margin: 0 auto 10px;
 }
 .service-card:hover .card-icon {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 18px 36px rgba(0,0,0,0.6);
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 18px 34px rgba(0,0,0,0.62), 0 0 0 8px rgba(175, 158, 118, 0.16);
 }
 .card-icon svg {
   display: block;
@@ -136,15 +143,26 @@
 .service-card h3 {
   margin: 0 0 6px 0;
   font-family: Poppins, sans-serif;
-  font-size: 1.15rem;
-  color: var(--accent);
+  font-size: 1.18rem;
+  color: rgba(248, 241, 230, 0.98);
   line-height: 1.06;
+  letter-spacing: 0.015em;
+  transition: color 220ms ease;
 }
 .service-card p {
   margin: 0;
-  color: var(--muted);
-  font-size: 0.98rem;
-  line-height: 1.6;
+  color: rgba(247, 243, 236, 0.88);
+  font-size: 0.96rem;
+  line-height: 1.62;
+  transition: color 220ms ease;
+}
+
+.service-card:hover h3 {
+  color: var(--accent);
+}
+
+.service-card:hover p {
+  color: rgba(247, 243, 236, 0.95);
 }
 
 .learn-btn {
@@ -185,9 +203,9 @@
 
 @media (max-width: 720px) {
   .card-icon {
-    width: 56px;
-    height: 56px;
-    flex: 0 0 56px;
+    width: 60px;
+    height: 60px;
+    flex: 0 0 60px;
     margin-bottom: 8px;
   }
   .card-icon svg {
@@ -195,10 +213,10 @@
     height: 28px;
   }
   .service-card {
-  padding: 16px;
-  border-radius: 12px;
-  width: 100%;
-  max-width: none;
+    padding: 16px;
+    border-radius: 14px;
+    width: 100%;
+    max-width: none;
   }
   .services-hero {
     padding: 48px 0 20px;
@@ -210,7 +228,31 @@
   display: flex;
 
   flex-direction: column;
-  
+
   gap: 12px;
   flex: 1 1 auto;
 }
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.service-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  height: 24px;
+  padding: 0 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(175, 158, 118, 0.5);
+  color: rgba(247, 243, 236, 0.9);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.03);
+}
+

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function FeaturedProject(){
   return (
@@ -14,9 +15,9 @@ export default function FeaturedProject(){
       A beautiful celebration filled with timeless romance, elegant décor, and unforgettable moments shared with family and friends.
     </p>
 
-    <a className="btn ghost featured-cta" href="#">
+    <Link className="btn ghost featured-cta" to="/gallery">
       VIEW LOVE STORY
-    </a>
+    </Link>
   </div>
 </section>
   )

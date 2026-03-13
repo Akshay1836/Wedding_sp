@@ -3,45 +3,45 @@ import './services.css'
 
 const serviceList = [
   {
-    key: 'full-day',
-    title: 'Full-Day Coverage',
+    key: 'candid-photography',
+    title: 'Candid Wedding Photography',
     desc:
-      'From morning preparations to the last dance — thoughtful photography and film coverage that captures your full story.',
+      'Natural, emotion-led moments captured throughout your celebrations so every laugh, tear, and ritual feels real and timeless.',
     icon: 'camera',
   },
   {
-    key: 'cinematic',
-    title: 'Cinematic Films',
+    key: 'traditional-coverage',
+    title: 'Traditional Ceremony Coverage',
     desc:
-      'Beautifully edited highlight films and feature edits with colour grading and sound design for a cinematic feel.',
-    icon: 'film',
-  },
-  {
-    key: 'albums',
-    title: 'Bespoke Albums',
-    desc:
-      'Handmade luxury albums and archival prints — heirloom-quality keepsakes crafted with care.',
-    icon: 'album',
-  },
-  {
-    key: 'planning',
-    title: 'Planning & Coordination',
-    desc:
-      'Expert planning, timeline creation, and day-of coordination so you can be fully present and relaxed.',
+      'Complete documentation of all key rituals, family groups, and stage portraits with clean, classic compositions.',
     icon: 'calendar',
   },
   {
-    key: 'design',
-    title: 'Styling & Decor',
+    key: 'pre-wedding',
+    title: 'Pre-Wedding Couple Shoot',
     desc:
-      'Artful florals, tabletop styling and decor coordination to create a cohesive, romantic aesthetic.',
+      'Styled outdoor or lifestyle sessions before the wedding day, perfect for invitations, decor screens, and keepsake memories.',
     icon: 'flowers',
   },
   {
-    key: 'music',
-    title: 'Music & Entertainment',
-    desc: 'Curated musicians, DJs and sound design to keep your celebration joyful and elegant.',
+    key: 'cinematic-films',
+    title: 'Cinematic Wedding Films',
+    desc:
+      'Story-driven wedding films with music, colour grading, and audio moments crafted into a beautiful highlight narrative.',
+    icon: 'film',
+  },
+  {
+    key: 'reels-teasers',
+    title: 'Instagram Reels & Teasers',
+    desc:
+      'Quick turnaround short edits designed for social media so you can share your wedding highlights with friends and family instantly.',
     icon: 'music',
+  },
+  {
+    key: 'albums-prints',
+    title: 'Premium Albums & Prints',
+    desc: 'Elegant handcrafted albums and fine-art prints that preserve your wedding story in a timeless, tangible format.',
+    icon: 'album',
   },
 ]
 
@@ -113,17 +113,17 @@ export default function Services() {
 
       <div className="services-content container">
         <div className="services-grid" role="list">
-          {serviceList.map((s) => (
+          {serviceList.map((s, idx) => (
             <article className="service-card" key={s.key} role="listitem">
               <div className="card-icon" aria-hidden="true">
                 <Icon name={s.icon} />
               </div>
               <div className="card-body">
+                <div className="card-meta" aria-hidden="true">
+                  <span className="service-index">{String(idx + 1).padStart(2, '0')}</span>
+                </div>
                 <h3>{s.title}</h3>
                 <p>{s.desc}</p>
-                <a className="learn-btn" href={`#${s.key}`} aria-label={`Learn more about ${s.title}`}>
-                  View Details
-                </a>
               </div>
             </article>
           ))}

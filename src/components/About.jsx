@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function About(){
   const containerRef = useRef(null)
@@ -70,7 +71,7 @@ export default function About(){
 
           <p className="about-copy">London-based creative studio crafting cinematic wedding photography and film. We combine documentary instincts with refined composition to create imagery that feels natural, timeless and deeply personal. From full-day coverage to bespoke films and keepsake albums, we design a calm, thoughtful experience that lets your story unfold.</p>
 
-          <div className="about-note">Free consultation available</div>
+          <Link className="about-note" to="/details-form">Free consultation available</Link>
         </div>
       </div>
     </section>
