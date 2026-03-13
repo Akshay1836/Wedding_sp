@@ -15,10 +15,6 @@ const images = [
   { src: '/wed6.jfif', caption: "Bridal Details" },
   { src: '/wed7.jfif', caption: "Groom's Smile" },
   { src: '/wed8.jfif', caption: "Couple Walk" },
-  { src: '/wed9.jfif', caption: "Evening Portrait" },
-  { src: '/wed10.jfif', caption: "Cake Cutting" },
-  { src: '/wed11.jfif', caption: "Vows Exchange" },
-  { src: '/wed12.jfif', caption: "Bridesmaids" },
 
 ]
 
@@ -43,12 +39,15 @@ function GalleryStack({
           modules={[Pagination, Navigation]}
           className="gallery-stack-swiper"
           slidesPerView={'auto'}
-          centeredSlides={true}
+          centeredSlides={false}
           /* negative spaceBetween allows slides to very close / slightly overlap */
           spaceBetween={-6}
           pagination={{ clickable: true }}
           navigation
-          loop
+          loop={images.length > 2}
+          rewind={false}
+          loopedSlides={images.length}
+          loopAdditionalSlides={images.length}
         >
           {images.map((item, i) => (
             <SwiperSlide key={i}>

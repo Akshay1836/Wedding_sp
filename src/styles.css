@@ -416,9 +416,9 @@ body.hero-loading-active{ overflow: hidden; }
 /* ensure Swiper slides and wrapper fill the hero area so absolutely-positioned
    backgrounds can size correctly. Also include width for some Swiper configs. */
 
-.swiper,
-.swiper-wrapper,
-.swiper-slide {
+.hero.large-hero .swiper,
+.hero.large-hero .swiper-wrapper,
+.hero.large-hero .swiper-slide {
   /* inherit the hero's min-height (60vh) so absolutely positioned
      slide backgrounds can size correctly even when parent uses min-height */
   min-height: inherit;
