@@ -7,14 +7,14 @@ import 'swiper/css/navigation'
 import './gallery-stack.css'
 
 const images = [
-  { src: '/wed1.jfif', caption: "Bride & Groom Candid" },
-  { src: '/wed2.jfif', caption: "First Dance" },
-  { src: '/wed3.jfif', caption: "Portrait in the Garden" },
-  { src: '/wed4.jfif', caption: "Rings Close-up" },
-  { src: '/wed5.jfif', caption: "Ceremony Moments" },
-  { src: '/wed6.jfif', caption: "Bridal Details" },
-  { src: '/wed7.jfif', caption: "Groom's Smile" },
-  { src: '/wed8.jfif', caption: "Couple Walk" },
+  { src: '/wed6.jpg', caption: "Bridal Details" },
+  { src: '/wed2.jpg', caption: "First Dance" },
+  { src: '/wed8.jpg', caption: "Couple Walk" },
+  { src: '/wed4.jpg', caption: "Rings Close-up" },
+  { src: '/wed1.jpg', caption: "Bride & Groom Candid" },
+  { src: '/wed7.jpg', caption: "Groom's Smile" },
+  { src: '/wed3.jpg', caption: "Portrait in the Garden" },
+  { src: '/wed5.jpg', caption: "Ceremony Moments" },
 
 ]
 

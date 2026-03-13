@@ -7,30 +7,28 @@ import 'swiper/css/navigation'
 
 // curated wedding imagery
 const images = [
-  '/wed1.jfif',
-  '/wed2.jfif',
-  '/wed3.jfif',
-  '/wed4.jfif',
-  '/wed5.jfif',
-  '/wed6.jfif',
-  '/wed7.jfif',
-  '/wed8.jfif',
-  '/wed9.jfif',
-  '/wed10.jfif',
-  '/wed11.jfif',
-  '/wed12.jfif',
-  '/wed13.jfif',
-   '/wed5.jfif',
-  '/wed6.jfif',
-  '/wed7.jfif',
-  '/wed8.jfif',
-  '/wed9.jfif',
-  '/wed10.jfif',
-  '/wed11.jfif',
-  '/wed12.jfif',
-  '/wed13.jfif',
-  '/wed18.jfif',
-  '/wed19.jfif'
+  '/wed33.jpg',
+  '/wed29.jpg',
+  '/wed36.jpg',
+  '/wed31.jpg',
+  '/wed39.jpg',
+  '/wed34.jpg',
+  '/wed30.jpg',
+  '/wed37.jpg',
+  '/wed32.jpg',
+  '/wed35.jpg',
+  '/wed38.jpg',
+  '/wed4.jpg',
+  '/wed1.jpg',
+  '/wed7.jpg',
+  '/wed10.jpg',
+  '/wed2.jpg',
+  '/wed12.jpg',
+  '/wed5.jpg',
+  '/wed8.jpg',
+
+  '/wed11.jpg',
+
 ]
 
 function chunk(arr, size) {
@@ -40,7 +38,7 @@ function chunk(arr, size) {
 }
 
 export default function Gallery(){
-  const slides = chunk(images, 6) // each slide will show a 2x3 grid
+  const slides = chunk(images, 10) // each slide will show a 2x5 grid on desktop
 
   return (
     <section id="gallery" className="gallery-section">
@@ -69,7 +67,7 @@ export default function Gallery(){
               <div className="slide-grid">
                 {group.map((src, i) => (
                   <div className="slide-card" key={i}>
-                    <img src={src} alt={`Wedding ${si * 6 + i + 1}`} loading="lazy" />
+                    <img src={src} alt={`Wedding ${si * 10 + i + 1}`} loading="lazy" />
                   </div>
                 ))}
               </div>

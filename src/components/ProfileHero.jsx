@@ -6,7 +6,7 @@ export default function ProfileHero(){
     <section className="profile-section">
       <div className="profile-inner container">
         <div className="profile-photo-wrap">
-          <img className="profile-photo" src="/wed7.jfif" alt="Wedding moment" loading="lazy" />
+          <img className="profile-photo" src="/wed7.jpg" alt="Wedding moment" loading="lazy" />
         </div>
 
         <div className="profile-content">

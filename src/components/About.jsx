@@ -60,8 +60,8 @@ export default function About(){
     <section id="about" className="about-section">
       <div className="container about-inner" ref={containerRef}>
         <div className="about-visual">
-          <img ref={mainRef} className="main-img" src="/wed5.jfif" alt="Portrait of a couple embracing" />
-          <img ref={accentRef} className="accent-img" src="/wed6.jfif" alt="Small scene of a seaside ceremony" />
+          <img ref={mainRef} className="main-img" src="/wed4.jpg" alt="Portrait of a couple embracing" />
+          <img ref={accentRef} className="accent-img" src="/wed18.jpg" alt="Small scene of a seaside ceremony" />
         </div>
 
         <div className="about-content">

@@ -4,7 +4,8 @@
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  height: clamp(300px, 40vh, 520px);
+  height: min(56.25vw, 520px);
+  min-height: 300px;
   overflow: hidden;
   background: transparent;
 }
@@ -52,6 +53,6 @@
 }
 
 @media (max-width: 720px){
-  .video-hero{ height: 260px }
+  .video-hero{ height: min(62vw, 300px); min-height: 220px }
   .mute-toggle{ right: 10px; bottom: 10px }
 }

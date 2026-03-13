@@ -6,27 +6,27 @@ import './fabulous-gallery.css'
 const MotionLink = motion(Link)
 
 const galleryImages = [
-  { src: '/wed1.jfif', alt: 'Joyful pre-ceremony candid frame', size: 'mid' },
-  { src: '/wed2.jfif', alt: 'Bride entry emotional moment', size: 'tall' },
-  { src: '/wed3.jfif', alt: 'Family rituals and blessings', size: 'wide' },
-  { src: '/wed4.jfif', alt: 'Couple portrait with elegant styling', size: 'mid' },
-  { src: '/wed5.jfif', alt: 'Ceremony details and decor capture', size: 'tall' },
-  { src: '/wed6.jfif', alt: 'Bride and groom candid laughter', size: 'wide' },
-  { src: '/wed20.jpg', alt: 'Bride and groom portrait after ceremony', size: 'tall' },
-  { src: '/wed21.webp', alt: 'Close-up candid wedding smile', size: 'wide' },
-  { src: '/wed22.jpg', alt: 'Elegant bridal portrait with veil', size: 'mid' },
-  { src: '/wed23.webp', alt: 'Family celebration at wedding stage', size: 'tall' },
-  { src: '/wed24.webp', alt: 'Decor and floral setup before function', size: 'mid' },
-  { src: '/wed25.jpg', alt: 'Couple walking hand in hand', size: 'wide' },
+  { src: '/wed33.jpg', alt: 'Cinematic courtyard portrait', size: 'wide' },
+  { src: '/wed29.jpg', alt: 'Bride entry emotional moment', size: 'tall' },
+  { src: '/wed35.jpg', alt: 'Ceremony details and decor capture', size: 'tall' },
+  { src: '/wed30.jpg', alt: 'Joyful pre-ceremony candid frame', size: 'mid' },
+  { src: '/wed38.jpg', alt: 'Couple portrait with elegant styling', size: 'mid' },
+  { src: '/wed31.jpg', alt: 'Family rituals and blessings', size: 'wide' },
+  { src: '/wed36.jpg', alt: 'Bride and groom portrait after ceremony', size: 'tall' },
+  { src: '/wed39.jpg', alt: 'Close-up candid wedding smile', size: 'wide' },
+  { src: '/wed34.jpg', alt: 'Elegant bridal portrait with veil', size: 'mid' },
+  { src: '/wed32.jpg', alt: 'Family celebration at wedding stage', size: 'tall' },
+  { src: '/wed37.jpg', alt: 'Decor and floral setup before function', size: 'mid' },
+  { src: '/wed29.jpg', alt: 'Couple walking hand in hand', size: 'wide' },
   { src: '/wed26.jpg', alt: 'Wedding ceremony emotional moment', size: 'mid' },
-  { src: '/wed20.jpg', alt: 'Sunset silhouette couple frame', size: 'tall' },
-  { src: '/wed28.jpg', alt: 'Grand reception dance frame', size: 'wide' },
-  { src: '/wed10.jfif', alt: 'Ritual close-up with warm tones', size: 'mid' },
-  { src: '/wed11.jfif', alt: 'Portrait under evening lights', size: 'tall' },
-  { src: '/wed12.jfif', alt: 'Celebration dance and crowd energy', size: 'wide' },
-  { src: '/wed13.jfif', alt: 'Bride candid with friends', size: 'mid' },
-  { src: '/wed14.jfif', alt: 'Cinematic couple silhouette frame', size: 'tall' },
-  { src: '/wed15.jfif', alt: 'Reception decor and mood lighting', size: 'mid' },
+  { src: '/wed24.jpg', alt: 'Sunset silhouette couple frame', size: 'tall' },
+  { src: '/wed27.jpg', alt: 'Grand reception dance frame', size: 'wide' },
+  { src: '/wed12.jpg', alt: 'Celebration dance and crowd energy', size: 'wide' },
+  { src: '/wed10.jpg', alt: 'Ritual close-up with warm tones', size: 'mid' },
+  { src: '/wed11.jpg', alt: 'Portrait under evening lights', size: 'tall' },
+  { src: '/wed13.jpg', alt: 'Bride candid with friends', size: 'mid' },
+  { src: '/wed14.jpg', alt: 'Cinematic couple silhouette frame', size: 'tall' },
+  { src: '/wed15.jpg', alt: 'Reception decor and mood lighting', size: 'mid' },
 ]
 
 const parentVariants = {
@@ -80,7 +80,7 @@ export default function FabulousGallery() {
 
         <div className="film-strip" aria-hidden="true">
           <div className="film-strip-track">
-            {['/wed16.jfif', '/wed17.jfif', '/wed18.jfif', '/wed19.jfif', '/wed7.jfif', '/wed8.jfif', '/wed9.jfif', '/wed16.jfif', '/wed17.jfif', '/wed18.jfif', '/wed19.jfif', '/wed7.jfif', '/wed8.jfif', '/wed9.jfif'].map((src, i) => (
+            {['/wed29.jpg', '/wed33.jpg', '/wed30.jpg', '/wed36.jpg', '/wed31.jpg', '/wed38.jpg', '/wed32.jpg', '/wed29.jpg', '/wed33.jpg', '/wed30.jpg', '/wed36.jpg', '/wed31.jpg', '/wed38.jpg', '/wed32.jpg'].map((src, i) => (
               <img key={`${src}-${i}`} src={src} alt="" loading="lazy" />
             ))}
           </div>
@@ -94,7 +94,7 @@ export default function FabulousGallery() {
         >
           {galleryImages.map((image, index) => (
             <motion.figure
-              key={image.src}
+              key={`${image.src}-${index}`}
               className={`fabulous-card ${image.size}`}
               variants={cardVariants}
               whileHover={{ y: -8, scale: 1.02, rotate: index % 2 === 0 ? -0.4 : 0.4 }}

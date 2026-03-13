@@ -131,7 +131,7 @@ export default function DetailsForm() {
             animate="show"
             transition={{ duration: 0.7, delay: 0.12, ease: 'easeOut' }}
           >
-            <img src="/wed24.webp" alt="" className="hero-image hero-image-main" loading="lazy" />
+            <img src="/wed44.jfif" alt="" className="hero-image hero-image-main" loading="lazy" />
           </motion.div>
         </div>
 

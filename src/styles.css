@@ -1009,9 +1009,9 @@ body.hero-loading-active .hero-overlay {
 }
 .slide-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  gap: 12px;
+  gap: 8px;
 }
 .slide-card {
   border-radius: 0;
@@ -1037,6 +1037,10 @@ body.hero-loading-active .hero-overlay {
   object-position: center;
   display: block;
   border-radius: 0; /* square images */
+}
+
+.gallery-section .slide-card {
+  background: #0f0f0f;
 }
 .slide-card:hover {
   transform: translateY(-6px);
@@ -1074,7 +1078,7 @@ body.hero-loading-active .hero-overlay {
   }
   .slide-grid {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: repeat(5, 1fr);
   }
   .slide-card {
     height: 180px;
@@ -1086,7 +1090,7 @@ body.hero-loading-active .hero-overlay {
 @media (max-width: 480px) {
   .slide-grid {
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(6, 1fr);
+    grid-template-rows: repeat(10, 1fr);
   }
   .slide-card {
     height: 140px;

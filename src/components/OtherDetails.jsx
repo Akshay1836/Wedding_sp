@@ -58,8 +58,8 @@ const faqList = [
 ]
 
 const visualMoments = [
-  { src: '/wed22.jpg', alt: 'Bride portrait moment', label: 'Bridal Portraits' },
-  { src: '/wed20.jpg', alt: 'Couple sunset photoshoot', label: 'Sunset Couple Session' },
+  { src: '/wed44.jfif', alt: 'Bride portrait moment', label: 'Bridal Portraits' },
+  { src: '/wed45.jfif', alt: 'Couple sunset photoshoot', label: 'Function portraits' },
 ]
 
 export default function OtherDetails() {
@@ -102,7 +102,7 @@ export default function OtherDetails() {
               </div>
             </div>
           </div>
-          <img src="/wed26.jpg" alt="Wedding details and planning" className="other-hero-image" loading="lazy" />
+          <img src="/wed46.jpg" alt="Wedding details and planning" className="other-hero-image" loading="lazy" />
         </motion.div>
 
         <div className="other-details-grid slim-grid">

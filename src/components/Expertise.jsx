@@ -7,19 +7,19 @@ const cards = [
     title: 'Cinematic Storytelling',
     copy:
       'Highlight films and full edits with careful colour grading and sound design to preserve the emotion of your day.',
-    img: '/wed21.webp',
+    img: '/wed16.jpg',
   },
   {
     title: 'Heirloom Albums',
     copy:
       'Handmade luxury albums and archival prints — heirloom-quality keepsakes crafted to last generations.',
-    img: '/wed22.jpg',
+    img: '/wed21.jpg',
   },
   {
     title: 'Planning & Direction',
     copy:
       'We coordinate timeline and creative direction so your story unfolds naturally and beautifully.',
-    img: '/wed23.webp',
+    img: '/wed42.jpg',
   },
 ]
 
