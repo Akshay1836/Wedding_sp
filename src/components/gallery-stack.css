@@ -229,13 +229,23 @@
   .gallery-stack-swiper .swiper-slide:nth-child(even) .gallery-stack-slide-card { height: 52vh; transform: translateY(0); }
 }
 
-/* Mobile: fall back to stacked carousel behavior (single prominent slide at a time) */
+/* Mobile: single photo per view */
 @media (max-width: 699px) {
-  .gallery-stack-swiper .swiper-wrapper { gap: 12px; }
-  .gallery-stack-swiper .swiper-slide { padding: 0; }
-  .gallery-stack-slide-card { width: 100%; height: 360px; }
+  .gallery-stack-swiper .swiper-wrapper { gap: 0; padding: 0; }
+  .gallery-stack-swiper .swiper-slide {
+    padding: 0;
+    width: 100% !important;
+    flex: 0 0 100% !important;
+  }
+  .gallery-stack-slide-card {
+    width: 100%;
+    height: 72vw;
+    min-height: 240px;
+    max-height: 480px;
+    border-radius: 8px;
+  }
   /* give extra breathing room on mobile where content stacks */
-  .gallery-stack-swiper-wrap { margin-top: 24px; }
+  .gallery-stack-swiper-wrap { margin-top: 24px; padding: 14px 16px 36px; }
 }
 
 /* centered large caption overlay - hidden by default, reveal on hover/focus */

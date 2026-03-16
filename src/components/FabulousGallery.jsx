@@ -102,18 +102,24 @@ export default function FabulousGallery() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, ease: 'easeOut' }}
         >
-          <p className="gallery-kicker">Gallery</p>
-          <h2 id="fabulous-gallery-heading" className="gallery-title-stack" aria-label="Cinematic Wedding Gallery">
-            <span className="gallery-title-line">CINEMATIC</span>
-            <span className="gallery-title-line">WEDDING GALLERY</span>
-          </h2>
-          <p className="gallery-hero-lead">
-            A curated collection of heartfelt frames, dynamic movement, and timeless moments from real weddings.
-          </p>
-          <div className="gallery-meta-row" aria-label="Gallery highlights">
-            <span>2000+ delivered photos</span>
-            <span>Real weddings</span>
-            <span>Editorial + candid style</span>
+          <div className="gallery-hero-text">
+            <p className="gallery-kicker">Gallery</p>
+            <h2 id="fabulous-gallery-heading" className="gallery-title-stack" aria-label="Cinematic Wedding Gallery">
+              <span className="gallery-title-line">CINEMATIC</span>
+              <span className="gallery-title-line">WEDDING GALLERY</span>
+            </h2>
+            <p className="gallery-hero-lead">
+              A curated collection of heartfelt frames, dynamic movement, and timeless moments from real weddings.
+            </p>
+            <div className="gallery-meta-row" aria-label="Gallery highlights">
+              <span>2000+ delivered photos</span>
+              <span>Real weddings</span>
+              <span>Editorial + candid style</span>
+            </div>
+          </div>
+          <div className="gallery-hero-collage" aria-hidden="true">
+            <img src="/wed35.jpg" alt="" className="gallery-hero-img img-back" loading="lazy" />
+            <img src="/wed30.jpg" alt="" className="gallery-hero-img img-front" loading="lazy" />
           </div>
         </motion.div>
 
@@ -238,9 +244,6 @@ export default function FabulousGallery() {
           <MotionLink
             to="/details-form"
             className="gallery-cta-btn"
-            whileHover={{ y: -3, scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: 'spring', stiffness: 240, damping: 18 }}
           >
             <span>Book Your Date</span>
           </MotionLink>

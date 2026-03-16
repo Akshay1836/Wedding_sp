@@ -38,16 +38,22 @@ function GalleryStack({
         <Swiper
           modules={[Pagination, Navigation]}
           className="gallery-stack-swiper"
-          slidesPerView={'auto'}
-          centeredSlides={false}
-          /* negative spaceBetween allows slides to very close / slightly overlap */
-          spaceBetween={-6}
+          slidesPerView={1}
+          centeredSlides={true}
+          spaceBetween={16}
           pagination={{ clickable: true }}
           navigation
           loop={images.length > 2}
           rewind={false}
           loopedSlides={images.length}
           loopAdditionalSlides={images.length}
+          breakpoints={{
+            700: {
+              slidesPerView: 'auto',
+              centeredSlides: false,
+              spaceBetween: -6,
+            },
+          }}
         >
           {images.map((item, i) => (
             <SwiperSlide key={i}>

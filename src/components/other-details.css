@@ -6,9 +6,42 @@
 }
 
 .other-details-inner {
-  max-width: var(--container);
+  max-width: 1240px;
   margin: 0 auto;
   padding: 0 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    linear-gradient(130deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
+    rgba(0, 0, 0, 0.26);
+  box-shadow: 0 24px 58px rgba(0, 0, 0, 0.35);
+  position: relative;
+}
+
+.other-details-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(177, 138, 71, 0.09) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(177, 138, 71, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.25;
+}
+
+.other-details-inner > * {
+  margin-left: 12px;
+  margin-right: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.other-details-inner > *:first-child {
+  margin-top: 24px;
+}
+
+.other-details-inner > *:last-child {
+  margin-bottom: 24px;
 }
 
 .other-details-hero {
@@ -511,6 +544,23 @@
 }
 
 @media (max-width: 920px) {
+  .other-details-inner {
+    padding: 0 16px;
+  }
+
+  .other-details-inner > * {
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+
+  .other-details-inner > *:first-child {
+    margin-top: 16px;
+  }
+
+  .other-details-inner > *:last-child {
+    margin-bottom: 16px;
+  }
+
   .other-details-hero {
     grid-template-columns: 1fr;
     gap: 18px;
@@ -583,6 +633,23 @@
 }
 
 @media (max-width: 620px) {
+  .other-details-inner {
+    padding: 0 12px;
+  }
+
+  .other-details-inner > * {
+    margin-left: 4px;
+    margin-right: 4px;
+  }
+
+  .other-details-inner > *:first-child {
+    margin-top: 12px;
+  }
+
+  .other-details-inner > *:last-child {
+    margin-bottom: 12px;
+  }
+
   .other-hero-collage {
     height: 218px;
   }

@@ -994,12 +994,6 @@ body.hero-loading-active .hero-overlay {
   justify-content: flex-start; /* keep paragraph left-aligned inside right column */
   padding-left: 0;
 }
-/* nudge subtitle a bit left on wider screens so title and subtitle read as a single inline row */
-@media (min-width: 901px) {
-  .gallery-subtext-wrap {
-    margin-left: -22px;
-  }
-}
 .gallery-subtext {
   color: var(--muted);
   max-width: 520px;
@@ -1070,19 +1064,25 @@ body.hero-loading-active .hero-overlay {
 @media (max-width: 900px) {
   .gallery-inner {
     grid-template-columns: 1fr;
+    gap: 10px;
   }
   .gallery-heading {
-  grid-column: 1 / -1;
-  display: flex;
-  justify-content: center; /* center heading on tablet/mobile */
-  text-align: center;
+    grid-column: 1 / -1;
+    text-align: center;
+  }
+  .gallery-heading .section-title {
+    font-size: clamp(2rem, 7vw, 3rem);
   }
   .gallery-subtext-wrap {
-  grid-column: 1 / -1;
-  padding-top: 12px;
-  display: flex;
-  justify-content: center; /* center the paragraph under the heading */
-  align-items: center;
+    grid-column: 1 / -1;
+    padding-top: 4px;
+    justify-content: center;
+    text-align: center;
+    margin-left: 0;
+  }
+  .gallery-subtext {
+    margin-bottom: 24px;
+    max-width: 100%;
   }
   .slide-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1090,9 +1090,6 @@ body.hero-loading-active .hero-overlay {
   }
   .slide-card {
     height: 180px;
-  }
-  .gallery-heading {
-    text-align: left;
   }
 }
 @media (max-width: 480px) {

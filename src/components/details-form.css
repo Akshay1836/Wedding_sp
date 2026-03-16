@@ -7,9 +7,42 @@
 }
 
 .details-form-inner {
-  max-width: var(--container);
+  max-width: 1240px;
   margin: 0 auto;
   padding: 0 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    linear-gradient(130deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
+    rgba(0, 0, 0, 0.26);
+  box-shadow: 0 24px 58px rgba(0, 0, 0, 0.35);
+  position: relative;
+}
+
+.details-form-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(177, 138, 71, 0.09) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(177, 138, 71, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.25;
+}
+
+.details-form-inner > * {
+  margin-left: 12px;
+  margin-right: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.details-form-inner > *:first-child {
+  margin-top: 24px;
+}
+
+.details-form-inner > *:last-child {
+  margin-bottom: 24px;
 }
 
 .details-hero {
@@ -262,6 +295,23 @@
 }
 
 @media (max-width: 920px) {
+  .details-form-inner {
+    padding: 0 16px;
+  }
+
+  .details-form-inner > * {
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+
+  .details-form-inner > *:first-child {
+    margin-top: 16px;
+  }
+
+  .details-form-inner > *:last-child {
+    margin-bottom: 16px;
+  }
+
   .details-hero {
     grid-template-columns: 1fr;
     gap: 18px;
@@ -282,6 +332,23 @@
 }
 
 @media (max-width: 760px) {
+  .details-form-inner {
+    padding: 0 12px;
+  }
+
+  .details-form-inner > * {
+    margin-left: 4px;
+    margin-right: 4px;
+  }
+
+  .details-form-inner > *:first-child {
+    margin-top: 12px;
+  }
+
+  .details-form-inner > *:last-child {
+    margin-bottom: 12px;
+  }
+
   .details-form {
     grid-template-columns: 1fr;
     padding: 18px;
