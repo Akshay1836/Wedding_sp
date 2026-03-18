@@ -30,9 +30,9 @@ const slides = [
   },
   {
     id: '04',
-    title: 'Reception Highlights',
+    title: 'Grand Farewell',
     text: 'Grand entries, first dances, and celebration moments delivered with cinematic style.',
-    category: 'Reception',
+    category: 'Celebration',
     image: '/wed55.jpg',
     position: 'center center',
   },
