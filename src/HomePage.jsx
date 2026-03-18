@@ -1,5 +1,5 @@
 import React from 'react'
-import Hero from './components/Hero'
+import CinematicHero from './components/CinematicHero'
 import VideoHero from './components/VideoHero'
 import ProfileHero from './components/ProfileHero'
 import About from './components/About'
@@ -18,7 +18,7 @@ export default function HomePage() {
   return (
     <>
       <main>
-        <Hero />
+        <CinematicHero />
         <About />
         <FeaturedProject />
         <Expertise />
