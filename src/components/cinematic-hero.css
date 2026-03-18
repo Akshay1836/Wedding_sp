@@ -387,7 +387,16 @@
     min-height: 220px;
   }
 
+  .cin-overlay {
+    place-items: stretch;
+    padding: 10px;
+  }
+
   .cin-overlay-inner {
+    width: 100%;
+    max-height: calc(100svh - 20px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     padding: 14px;
   }
 }
