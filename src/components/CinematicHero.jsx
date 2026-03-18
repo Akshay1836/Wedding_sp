@@ -15,7 +15,7 @@ const slides = [
   {
     id: '02',
     title: 'Sacred Rituals',
-    text: 'From vows to blessings, each ceremony detail is documented with elegant and respectful storytelling.',
+    text: 'From vows to blessings, each ceremony detail is documented with elegant and storytelling.',
     category: 'Ceremony',
     image: '/wed54.jpg',
     position: 'center center',
@@ -23,7 +23,7 @@ const slides = [
   {
     id: '03',
     title: 'Couple Portraits',
-    text: 'Editorial portraits designed with natural light, graceful direction, and refined composition.',
+    text: 'Editorial portraits designed with natural light, graceful direction, and composition.',
     category: 'Portraits',
     image: '/wed51.jpg',
     position: 'center center',
@@ -31,7 +31,7 @@ const slides = [
   {
     id: '04',
     title: 'Reception Highlights',
-    text: 'Grand entries, first dances, and celebration moments delivered with cinematic clarity and style.',
+    text: 'Grand entries, first dances, and celebration moments delivered with cinematic style.',
     category: 'Reception',
     image: '/wed55.jpg',
     position: 'center center',
