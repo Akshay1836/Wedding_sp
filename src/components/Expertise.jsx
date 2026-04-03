@@ -1,6 +1,9 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import './expertise.css'
+
+const MotionLink = motion(Link)
 
 const cards = [
   {
@@ -8,18 +11,21 @@ const cards = [
     copy:
       'Highlight films and full edits with careful colour grading and sound design to preserve the emotion of your day.',
     img: '/wed16.jpg',
+    to: '/gallery',
   },
   {
     title: 'Heirloom Albums',
     copy:
       'Handmade luxury albums and archival prints — heirloom-quality keepsakes crafted to last generations.',
     img: '/wed21.jpg',
+    to: '/details-form',
   },
   {
     title: 'Planning & Direction',
     copy:
       'We coordinate timeline and creative direction so your story unfolds naturally and beautifully.',
     img: '/wed42.jpg',
+    to: '/what-we-do',
   },
 ]
 
@@ -45,8 +51,8 @@ export default function Expertise() {
         <div className="expertise-left">
           <span className="eyebrow">OUR EXPERTISE</span>
           <h2 className="expertise-title">
-            Complex Problems.<br />
-            Elegant Solutions.
+            Crafted with Vision,<br />
+            Timeless Storytelling.
           </h2>
         </div>
 
@@ -64,7 +70,7 @@ export default function Expertise() {
             viewport={{ once: true, amount: 0.2 }}
           >
             {cards.map((c, idx) => (
-              <motion.article className="expertise-card" key={idx} variants={item} tabIndex={0}>
+              <MotionLink className="expertise-card" key={idx} variants={item} to={c.to} aria-label={`${c.title} details`}>
                 <div className="card-thumb">
                   <img src={c.img} alt={c.title} />
                 </div>
@@ -79,7 +85,7 @@ export default function Expertise() {
                     <path d="M9 6l6 6-6 6" stroke="#0b0b0b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </div>
-              </motion.article>
+              </MotionLink>
             ))}
           </motion.div>
         </div>

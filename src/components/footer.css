@@ -40,6 +40,14 @@
   color: var(--muted);
   line-height: 1.5;
 }
+.site-footer:not(.alt-footer) .footer-box ul li a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.site-footer:not(.alt-footer) .footer-box ul li a:hover {
+  color: var(--accent);
+}
 .site-footer:not(.alt-footer) .footer-socials {
   display: flex;
   flex-direction: column;

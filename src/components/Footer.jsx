@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import './footer.css'
 
 const footerColumns = [
@@ -82,6 +83,23 @@ const socialLinks = [
 export default function Footer(){
   const year = new Date().getFullYear()
 
+  const getFooterLink = (columnTitle, item) => {
+    const key = `${columnTitle}:${item}`
+    const links = {
+      'PORTFOLIO:All': { to: '/gallery', type: 'internal' },
+      'PORTFOLIO:About': { to: '/what-we-do', type: 'internal' },
+      'PORTFOLIO:Watch Now': { href: '#', type: 'external' },
+      'CINEMOTION PICTURES:Home': { to: '/', type: 'internal' },
+      'CINEMOTION PICTURES:FAQs': { href: '#', type: 'external' },
+      'CINEMOTION PICTURES:Terms of Use': { href: '#', type: 'external' },
+      'CINEMOTION PICTURES:Privacy Policy': { href: '#', type: 'external' },
+      'CINEMOTION PICTURES:Cookie Policy': { href: '#', type: 'external' },
+      'CINEMOTION PICTURES:Contact': { to: '/details-form', type: 'internal' },
+    }
+
+    return links[key] || null
+  }
+
   return (
     <footer className="site-footer">
       <div className="container footer-grid">
@@ -91,7 +109,21 @@ export default function Footer(){
               <h5>{column.title}</h5>
               <ul>
                 {column.items.map((item) => (
-                  <li key={`${column.title}-${item}`}>{item}</li>
+                  <li key={`${column.title}-${item}`}>
+                    {(() => {
+                      const link = getFooterLink(column.title, item)
+
+                      if (!link) {
+                        return item
+                      }
+
+                      if (link.type === 'internal') {
+                        return <Link to={link.to}>{item}</Link>
+                      }
+
+                      return <a href={link.href}>{item}</a>
+                    })()}
+                  </li>
                 ))}
               </ul>
             </div>

@@ -45,8 +45,6 @@ function GalleryStack({
           navigation
           loop={images.length > 2}
           rewind={false}
-          loopedSlides={images.length}
-          loopAdditionalSlides={images.length}
           breakpoints={{
             700: {
               slidesPerView: 'auto',

@@ -6,8 +6,8 @@
   --cin-text-color-alt: #000;
   --cin-grey: #808080;
   --cin-preview-text: #fff;
-  min-height: 100svh;
-  height: 100svh;
+  min-height: 112svh;
+  height: 112svh;
   position: relative;
   display: flex;
   align-items: flex-end;
@@ -53,7 +53,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 18px clamp(16px, 3vw, 34px) 12px;
+  padding: 18px clamp(16px, 3vw, 34px) 36px;
 }
 
 .cin-loader {
@@ -340,13 +340,27 @@
 }
 
 @media (max-width: 980px) {
+  .cin-meta-row {
+    margin-bottom: 6px;
+  }
+
   .cin-main-grid {
     grid-template-columns: 1fr;
-    gap: 14px;
+    gap: 18px;
+    margin-top: 18px;
+    padding-bottom: 10px;
   }
 
   .cin-hero-inner {
-    padding: 14px 14px 10px;
+    padding: 16px 14px 26px;
+  }
+
+  .cin-info-box {
+    padding: 18px;
+  }
+
+  .cin-controls {
+    margin-top: 22px;
   }
 
   .cin-preview-grid {
@@ -356,17 +370,40 @@
 
 @media (max-width: 640px) {
   .cin-hero {
-    min-height: 100svh;
-    height: 100svh;
+    min-height: 108svh;
+    height: 108svh;
     padding: 96px 0 22px;
   }
 
+  .cin-meta-row {
+    margin-bottom: 2px;
+  }
+
+  .cin-main-grid {
+    margin-top: 14px;
+    gap: 14px;
+    padding-bottom: 8px;
+  }
+
   .cin-hero-inner {
-    padding: 12px 10px 8px;
+    padding: 14px 12px 22px;
   }
 
   .cin-kicker {
     font-size: 0.68rem;
+  }
+
+  .cin-title {
+    margin: 6px 0 10px;
+    line-height: 0.95;
+  }
+
+  .cin-text {
+    line-height: 1.6;
+  }
+
+  .cin-info-box {
+    padding: 16px;
   }
 
   .cin-open-overlay,
@@ -377,6 +414,10 @@
   .cin-control-btn {
     width: 38px;
     height: 38px;
+  }
+
+  .cin-controls {
+    margin-top: 18px;
   }
 
   .cin-preview-grid {

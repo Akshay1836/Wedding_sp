@@ -3,9 +3,9 @@ import './services-grid.css'
 
 export default function ServicesGrid(){
   const items = [
-    { id: 'photo', img: '/wed3.jpg', label: 'PHOTOGRAPHY', href: '#photography' },
-    { id: 'film', img: '/wed11.jpg', label: 'CINEMATOGRAPHY', href: '#cinematography' },
-    { id: 'lux', img: '/wed7.jpg', label: 'WEDDING TRANSPORT', href: '#transport' }
+    { id: 'photo', img: '/wed3.jpg', label: 'PHOTOGRAPHY', href: 'gallery' },
+    { id: 'film', img: '/wed11.jpg', label: 'CINEMATOGRAPHY', href: 'gallery' },
+    { id: 'lux', img: '/wed7.jpg', label: 'WEDDING TRANSPORT', href: 'gallery' }
   ]
 
   return (

@@ -67,11 +67,13 @@ export default function About(){
 
         <div className="about-content">
           <h2 className="about-title">We craft <span className="accent">unforgettable</span> wedding stories</h2>
-          <p className="about-sub">Cinematic imagery. Honest moments. A relaxed experience.</p>
+          <p className="about-sub">We create timeless wedding stories with a refined, editorial touch.
+Elegant visuals. Genuine emotion. A seamless, considered experience.
+</p>
 
-          <p className="about-copy">London-based creative studio crafting cinematic wedding photography and film. We combine documentary instincts with refined composition to create imagery that feels natural, timeless and deeply personal. From full-day coverage to bespoke films and keepsake albums, we design a calm, thoughtful experience that lets your story unfold.</p>
+          <p className="about-copy">Cinemotion is a London-based wedding photography and videography studio dedicated to storytelling with depth and style. Blending a documentary approach with an editorial eye, we capture moments as they naturally unfold—honest, sophisticated, and enduring. From comprehensive day coverage to bespoke films and beautifully crafted albums, we offer a calm, professional experience designed to let your story be told with authenticity and grace.</p>
 
-          <Link className="about-note" to="/details-form">Free consultation available</Link>
+          <Link className="about-note" to="/details-form">Book an appointment</Link>
         </div>
       </div>
     </section>
